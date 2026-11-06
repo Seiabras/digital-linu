@@ -3,9 +3,10 @@
 Vídeo, redes sociais, anúncios, marca e automação para pequenos negócios: **https://digital.linupedia.com.br**.
 Da mesma equipe do [Linu Sites](https://sites.linupedia.com.br) e da [LinuPedia](https://linupedia.com.br).
 
-Uma página só, sem dependências: HTML, CSS e um pouco de JavaScript. O site é publicado junto com o Linu Sites: a cópia
-que vai ao ar fica em `sitios/digital-linu/` do repositório `Seiabras/linu-sites`, que a entrega na VM da Oracle, e o
-Caddy serve o subdomínio. Mudou aqui, leve para lá (e o contrário).
+Uma página só, sem dependências: HTML, CSS e um pouco de JavaScript. O site tem publicação própria, separada do
+Linu Sites: a cada push na `main`, o GitHub Actions entrega o site na VM da Oracle e o Caddy serve o subdomínio
+(detalhes em [`deploy/ORACLE.md`](deploy/ORACLE.md)). O Linu Sites é o serviço irmão, em `Seiabras/linu-sites`: os dois
+apontam um para o outro, mas cada um vive no seu repositório.
 
 ## Como está organizado
 
@@ -19,6 +20,7 @@ Caddy serve o subdomínio. Mudou aqui, leve para lá (e o contrário).
 | `img/` | O Linu (`linu-frente.png`, em pixel art) e os ícones do site. |
 | `fontes/` | Nunito (licença OFL, `OFL.txt`), servida pelo próprio site. |
 | `robots.txt`, `sitemap.xml` | Para os buscadores. |
+| `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. |
 | `IDENTIDADE.md` | As decisões de identidade (o objeto, as cores, as fontes, a voz, o que evitar). Ler antes de mexer em tela. |
 | `DIRETRIZES-UX.md` | As diretrizes de interface e desempenho de todos os projetos. |
 
