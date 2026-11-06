@@ -27,7 +27,8 @@ todo arquivo usado existe (`deploy/conferir-pagina.py`) e manda o site para a VM
 sudo**, com uma chave presa ao comando `/opt/digital-linu/receber.sh`: ela só consegue trocar `/opt/digital-linu/app`
 (a versão anterior fica em `app.anterior`).
 
-Preparação (uma vez): `sudo bash deploy/instalar-uma-vez.sh "<chave pública>"` na VM, a chave privada no segredo
+Preparação (uma vez): `bash deploy/ligar-publicacao.sh` no computador faz tudo. À mão: `sudo bash
+deploy/instalar-uma-vez.sh "<chave pública>"` na VM, a chave privada no segredo
 `ORACLE_SSH_KEY` e a linha da chave da VM no segredo `ORACLE_HOST_KEY` (Settings → Secrets and variables → Actions).
 A linha da VM sai de `echo "168.138.155.95 $(cut -d' ' -f1,2 /etc/ssh/ssh_host_ed25519_key.pub)"`.
 **Para cortar o acesso do GitHub:** apagar `/home/digitallinu/.ssh/authorized_keys`.
