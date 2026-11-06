@@ -28,6 +28,9 @@ apontam um para o outro, mas cada um vive no seu repositório.
 
 - **Monte o seu pacote:** cada serviço tem “Adicionar”; o pacote fica guardado no navegador (`localStorage`,
   `digital-pacote`) e aparece ao lado (computador) ou numa barra presa embaixo (celular e tablet).
+- **Raio-X do negócio:** oito perguntas de sim ou não (Google Maps, perfil, constância, vídeo, anúncio, marca,
+  WhatsApp, site). Cada falta mostra o serviço e o motivo; “Levar para o meu pacote” junta tudo ao pacote, e quem não
+  tem site recebe o link do Linu Sites. Respostas no navegador (`localStorage`, `digital-raiox`).
 - **Pacotes prontos:** Começar, Crescer e Completo marcam os serviços de uma vez; o quarto leva ao Linu Sites.
 - **Orçamento:** nome e negócio validados na hora; a mensagem sai escrita no WhatsApp ou no e-mail, com o pacote.
   O que foi digitado fica guardado no navegador.
@@ -35,6 +38,9 @@ apontam um para o outro, mas cada um vive no seu repositório.
   nunca entra. A mesma seção está no Linu Sites.
 - **A faixa de ida e volta:** no alto, “Procurando um site ou aplicativo? Conheça o Linu Sites”; lá, a mesma faixa
   aponta para cá.
+
+- **Compartilhar e Google:** `img/compartilhar.png` (1200 × 630, o Linu no visor) nas etiquetas `og:` e
+  `twitter:card`, e os dados estruturados (`ProfessionalService`, com os 17 serviços) no `<head>`.
 
 ## Ver no computador
 
