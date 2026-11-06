@@ -12,12 +12,12 @@ apontam um para o outro, mas cada um vive no seu repositório.
 
 | Arquivo / pasta | O que tem |
 |---|---|
-| `index.html` | A página: abertura com o visor, serviços (17, em seis áreas), pacotes prontos, como funciona, dúvidas, orçamento e identidade visual. |
+| `index.html` | A página: abertura com o visor, o Raio-X, serviços (17, em seis áreas), pacotes prontos, como funciona, dúvidas, orçamento e identidade visual. |
 | `404.html` | Página de erro (o Caddy mostra em qualquer endereço que não existe). |
 | `css/estilo.css` | Visual, com as três versões (celular até 699 px, tablet até 1099 px, computador) e o modo claro e escuro. |
 | `js/tema-inicio.js` | Aplica o tema escolhido antes de pintar. |
 | `js/digital.js` | Tema, menu, filtro por área, o pacote, o formulário, voltar ao topo, entradas ao rolar e o copiar das cores. |
-| `img/` | O Linu (`linu-frente.png`, em pixel art) e os ícones do site. |
+| `img/` | O Linu (`linu-frente.png`, em pixel art), os ícones do site e a imagem de compartilhar (`compartilhar.png`, 1200 × 630). |
 | `fontes/` | Nunito (licença OFL, `OFL.txt`), servida pelo próprio site. |
 | `robots.txt`, `sitemap.xml` | Para os buscadores. |
 | `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. |
