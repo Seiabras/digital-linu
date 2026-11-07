@@ -509,3 +509,7 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
 }
 @view-transition { navigation: auto; }
 .erro { min-height: 100vh; display: grid; align-items: center; border-bottom: 0; }
+
+/* o pedido: o campo escondido dos robôs e o aviso de privacidade */
+.pote { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formulario-privacidade { margin: 4px 0 0; font-size: .85rem; opacity: .85; }

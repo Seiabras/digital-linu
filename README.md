@@ -67,6 +67,11 @@ apontam um para o outro, mas cada um vive no seu repositório.
   07/11/2026, renderizada no Playwright) nas etiquetas `og:` e
   `twitter:card`, e os dados estruturados (`ProfessionalService`, com os 17 serviços) no `<head>`.
 
+- **O registro dos pedidos (07/11/2026):** ao tocar em Mandar pelo WhatsApp ou por e-mail, a página manda o pedido (nome,
+  negócio, o que escolheu, a estimativa e a mensagem) para `/api/pedido` por `sendBeacon`, sem atrasar a abertura; o
+  Caddy encaminha para o `linu-pedidos` (linuarquivos/servidor), que guarda por 12 meses e avisa por e-mail. O aviso de
+  privacidade fica embaixo dos botões, e um campo escondido (`site_extra`) separa os robôs.
+
 ## Ver no computador
 
 ```bash
