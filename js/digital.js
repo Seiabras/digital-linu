@@ -25,7 +25,8 @@
   sistemaEscuro.addEventListener("change", rotularTema);
   rotularTema();
 
-  /* 1b. A foto ao trocar o tema: o obturador fecha e abre, o flash, o Linu posa e a legenda conta a tomada. Se o
+  /* 1b. A foto ao trocar o tema: o Linu, com a câmera na mão, tira a foto: o obturador fecha e abre, o flash, o Linu
+        se mexe e a legenda conta a tomada. Se o
         visor estiver fora da tela, a mesma cena aparece num cartão no canto e some sozinha. Só ao toque, nunca em
         loop; com "reduzir movimento", só a legenda muda. */
   var visor = document.querySelector(".visor-tela");
@@ -46,7 +47,7 @@
     segundos += 3;
     var codigo = "00:00:" + String(segundos % 60).padStart(2, "0") + ":" + String((tomada * 7) % 24).padStart(2, "0");
     tempo.textContent = codigo;
-    legenda.textContent = "Tomada " + tomada + ": clique! O Linu posou para o modo " + (escuro ? "escuro." : "claro.");
+    legenda.textContent = "Tomada " + tomada + ": clique! O Linu fotografou o modo " + (escuro ? "escuro." : "claro.");
     if (menosMovimento.matches) return;
     if (visorNaTela()) { clicar(visor); return; }
     if (!cartao) {

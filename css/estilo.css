@@ -183,7 +183,7 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; }
 /* O visor da câmera com o Linu: a assinatura do Digital Linu */
 .visor { margin: 0; }
 .visor-tela { position: relative; aspect-ratio: 16 / 10; display: grid; place-items: end center; overflow: hidden; border-radius: 10px; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .03) 0 2px, transparent 2px 4px), #0B1220; border: 2px solid rgba(255, 255, 255, .18); }
-.visor-linu { width: 34%; height: auto; margin-bottom: -2px; }
+.visor-linu { width: 27%; height: auto; margin-bottom: 3%; }
 .visor-rec { position: absolute; top: 12px; left: 14px; display: inline-flex; align-items: center; gap: 6px; font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; font-size: .85rem; color: #FFFFFF; }
 .visor-rec::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #EF4444; }
 .visor-tempo { position: absolute; top: 12px; right: 14px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; color: #E2E8F0; }
