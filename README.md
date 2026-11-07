@@ -13,12 +13,10 @@ apontam um para o outro, mas cada um vive no seu repositório.
 | Arquivo / pasta | O que tem |
 |---|---|
 | `index.html` | A página: abertura com o visor, o Raio-X, serviços (17, em seis áreas, com preço), pacotes prontos, trabalhos, como funciona, dúvidas e orçamento. |
-| `identidade.html` | A identidade visual da família Linu, em `/identidade` (página própria desde 07/11/2026). |
 | `404.html` | Página de erro (o Caddy mostra em qualquer endereço que não existe). |
 | `css/estilo.css` | Visual, com as três versões (celular até 699 px, tablet até 1099 px, computador) e o modo claro e escuro. |
 | `js/tema-inicio.js` | Aplica o tema escolhido antes de pintar. |
 | `js/digital.js` | Tema, menu, filtro por área, o “ver todos” do celular, o pacote com a estimativa, o formulário, voltar ao topo, entradas ao rolar e o Raio-X. |
-| `js/identidade.js` | O tema e o copiar das cores, na página da identidade. |
 | `img/` | O Linu (`linu-frente.png`, em pixel art), os ícones do site e a imagem de compartilhar (`compartilhar.png`, 1200 × 630). |
 | `fontes/` | Nunito (licença OFL, `OFL.txt`), servida pelo próprio site. |
 | `robots.txt`, `sitemap.xml` | Para os buscadores. |
@@ -45,8 +43,8 @@ apontam um para o outro, mas cada um vive no seu repositório.
   os primeiros clientes de vídeo e redes, que entram com permissão.
 - **Orçamento:** nome e negócio validados na hora; a mensagem sai escrita no WhatsApp ou no e-mail, com o pacote.
   O que foi digitado fica guardado no navegador.
-- **Identidade visual (`/identidade`):** o Linu, as cores da família (tocar copia o código), as letras, o objeto de
-  cada site e o que nunca entra. Saiu da página de vendas em 07/11/2026; o link fica no rodapé e nos Trabalhos.
+- **Identidade visual:** mora na Família Linu (https://familia.linupedia.com.br/identidade) desde 07/11/2026; o
+  `/identidade` daqui leva para lá (um `redir` no bloco do Caddy), e o rodapé e os Trabalhos apontam direto.
 - **A foto ao trocar o tema (07/11/2026):** o botão do sol e da lua faz a câmera fotografar o Linu: o obturador fecha e
   abre, vem o flash, o Linu posa e a legenda conta a tomada (“Tomada 2: clique!”). Com o visor fora da tela, a cena
   aparece num cartão no canto e some sozinha. Só ao toque, nunca em loop; com “reduzir movimento”, só a legenda muda.
