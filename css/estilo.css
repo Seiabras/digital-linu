@@ -193,6 +193,32 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; }
 .visor-canto-3 { bottom: 14px; left: 14px; border-bottom-width: 2px; border-left-width: 2px; }
 .visor-canto-4 { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
 .visor figcaption { margin-top: 8px; color: #CBD5E1; font-size: .9rem; }
+/* A foto ao trocar o tema: o obturador em duas lâminas, o flash e o Linu posando; só ao toque (js/digital.js) */
+.visor-obturador, .visor-flash { position: absolute; inset: 0; pointer-events: none; }
+.visor-obturador::before, .visor-obturador::after { content: ""; position: absolute; left: 0; right: 0; height: 50.5%; background: #05080F; transform: scaleY(0); }
+.visor-obturador::before { top: 0; transform-origin: top; }
+.visor-obturador::after { bottom: 0; transform-origin: bottom; }
+.visor-flash { background: #FFFFFF; opacity: 0; }
+.clique .visor-obturador::before, .clique .visor-obturador::after { animation: obturar .26s ease-in-out; }
+.clique .visor-flash { animation: flash .55s ease-out .13s; }
+.clique .visor-linu { animation: posar .7s ease-out .08s; transform-origin: bottom center; }
+.clique .visor-rec::before { animation: rec .7s ease-out; }
+@keyframes obturar { 0%, 100% { transform: scaleY(0); } 45%, 55% { transform: scaleY(1); } }
+@keyframes flash { 0% { opacity: .92; } 100% { opacity: 0; } }
+@keyframes posar { 0% { transform: none; } 25% { transform: translateY(-9%) scale(1.03); } 50% { transform: translateY(0) scale(1.05, .95); } 70% { transform: scale(.98, 1.02); } 100% { transform: none; } }
+@keyframes rec { 0%, 100% { transform: none; } 30% { transform: scale(1.6); } }
+/* o cartão do canto, quando o visor está fora da tela */
+.visor-cartao { position: fixed; top: 76px; right: 12px; z-index: 25; width: 168px; border-radius: 12px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .55); opacity: 0; transform: translateY(-8px) scale(.96); pointer-events: none; transition: opacity .2s ease-in, transform .2s ease-in; }
+.visor-cartao.aberto { opacity: 1; transform: none; transition: opacity .2s ease-out, transform .2s ease-out; }
+.visor-cartao .visor-tela { border-radius: 12px; }
+.visor-cartao .visor-rec, .visor-cartao .visor-tempo { top: 6px; font-size: .62rem; }
+.visor-cartao .visor-rec { left: 8px; }
+.visor-cartao .visor-tempo { right: 8px; }
+.visor-cartao .visor-canto { width: 12px; height: 12px; }
+.visor-cartao .visor-canto-1, .visor-cartao .visor-canto-2 { top: 22px; }
+.visor-cartao .visor-canto-1, .visor-cartao .visor-canto-3 { left: 8px; }
+.visor-cartao .visor-canto-2, .visor-cartao .visor-canto-4 { right: 8px; }
+.visor-cartao .visor-canto-3, .visor-cartao .visor-canto-4 { bottom: 8px; }
 .pixel { image-rendering: pixelated; }
 
 /* Identidade visual */

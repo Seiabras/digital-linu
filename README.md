@@ -47,6 +47,9 @@ apontam um para o outro, mas cada um vive no seu repositório.
   O que foi digitado fica guardado no navegador.
 - **Identidade visual (`/identidade`):** o Linu, as cores da família (tocar copia o código), as letras, o objeto de
   cada site e o que nunca entra. Saiu da página de vendas em 07/11/2026; o link fica no rodapé e nos Trabalhos.
+- **A foto ao trocar o tema (07/11/2026):** o botão do sol e da lua faz a câmera fotografar o Linu: o obturador fecha e
+  abre, vem o flash, o Linu posa e a legenda conta a tomada (“Tomada 2: clique!”). Com o visor fora da tela, a cena
+  aparece num cartão no canto e some sozinha. Só ao toque, nunca em loop; com “reduzir movimento”, só a legenda muda.
 - **A faixa de ida e volta:** no alto, “Procurando um site ou aplicativo? Conheça o Linu Sites”; lá, a mesma faixa
   aponta para cá.
 - **Dúvidas com os termos simples:** pagamento (metade no aceite e metade na entrega; mensal no começo do mês), duas

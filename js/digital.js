@@ -20,9 +20,48 @@
     raiz.dataset.theme = escuroAgora() ? "light" : "dark";
     guardar("tema", raiz.dataset.theme);
     rotularTema();
+    fotografar(raiz.dataset.theme === "dark");
   });
   sistemaEscuro.addEventListener("change", rotularTema);
   rotularTema();
+
+  /* 1b. A foto ao trocar o tema: o obturador fecha e abre, o flash, o Linu posa e a legenda conta a tomada. Se o
+        visor estiver fora da tela, a mesma cena aparece num cartão no canto e some sozinha. Só ao toque, nunca em
+        loop; com "reduzir movimento", só a legenda muda. */
+  var visor = document.querySelector(".visor-tela");
+  var legenda = document.querySelector("[data-visor-legenda]");
+  var tempo = visor.querySelector(".visor-tempo");
+  var tomada = 1, segundos = 12, cartao = null, sumirCartao;
+  function visorNaTela() {
+    var r = visor.getBoundingClientRect();
+    return r.bottom > 80 && r.top < window.innerHeight - 40;
+  }
+  function clicar(tela) {
+    tela.classList.remove("clique");
+    void tela.offsetWidth; // recomeça a animação se tocarem de novo no meio
+    tela.classList.add("clique");
+  }
+  function fotografar(escuro) {
+    tomada++;
+    segundos += 3;
+    var codigo = "00:00:" + String(segundos % 60).padStart(2, "0") + ":" + String((tomada * 7) % 24).padStart(2, "0");
+    tempo.textContent = codigo;
+    legenda.textContent = "Tomada " + tomada + ": clique! O Linu posou para o modo " + (escuro ? "escuro." : "claro.");
+    if (menosMovimento.matches) return;
+    if (visorNaTela()) { clicar(visor); return; }
+    if (!cartao) {
+      cartao = document.createElement("div");
+      cartao.className = "visor-cartao";
+      cartao.setAttribute("aria-hidden", "true");
+      cartao.appendChild(visor.cloneNode(true));
+      document.body.appendChild(cartao);
+    }
+    cartao.querySelector(".visor-tempo").textContent = codigo;
+    cartao.classList.add("aberto");
+    clicar(cartao.firstChild);
+    clearTimeout(sumirCartao);
+    sumirCartao = setTimeout(function () { cartao.classList.remove("aberto"); }, 1800);
+  }
 
   /* 2. Menu do celular */
   var abrir = document.querySelector(".menu-abrir");
