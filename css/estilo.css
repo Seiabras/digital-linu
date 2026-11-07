@@ -237,6 +237,13 @@ h2 { font-size: clamp(2rem, 6vw, 2.9rem); font-weight: 800; font-stretch: 75%; l
 .pergunta input[value="sim"]:checked + span { background: var(--tinta); border-color: var(--tinta); color: var(--papel); }
 .pergunta input[value="nao"]:checked + span { background: var(--cor); border-color: var(--cor); color: var(--cor-sobre); }
 .pergunta input:focus-visible + span { outline: 3px solid var(--foco); outline-offset: 2px; position: relative; z-index: 1; }
+/* o medidor preso no alto (celular e tablet, 07/11/2026): as oito barras pequenas, a contagem e o atalho ao resultado */
+.raiox-mini { position: sticky; top: 100px; z-index: 4; display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 12px 6px 6px; border-radius: 6px; background: var(--chrome); border: 1px solid var(--chrome-linha); color: var(--chrome-tinta); font: 600 .85rem/1.2 var(--mono); text-decoration: none; box-shadow: 0 10px 22px -14px rgba(0, 0, 0, .6); }
+.raiox-mini[hidden] { display: none; }
+.medidor-mini { width: 112px; height: 34px; flex: none; gap: 3px; padding: 3px; }
+.raiox-mini-ver { margin-left: auto; color: var(--fogo-claro); }
+.raiox-mini:focus-visible { outline-color: var(--fogo-claro); }
+.raiox-resultado { scroll-margin-top: 120px; }
 .raiox-resultado { display: grid; gap: 10px; align-content: start; padding: 16px 18px 18px; border-radius: 8px; background: var(--chrome); border: 1px solid var(--chrome-linha); color: var(--chrome-tinta); }
 .painel-rotulo { margin: 0; display: flex; align-items: center; gap: 8px; font: 500 .75rem/1.3 var(--mono); color: var(--chrome-suave); }
 .painel-rotulo::before { content: ""; width: 8px; height: 8px; background: var(--fogo); }
@@ -329,6 +336,17 @@ h2 { font-size: clamp(2rem, 6vw, 2.9rem); font-weight: 800; font-stretch: 75%; l
 .pronto-destaque { position: relative; }
 .pronto-destaque::before { content: ""; position: absolute; left: -16px; top: -1px; bottom: -1px; width: 4px; background: var(--cor); }
 .pronto-site { grid-template-areas: "info" "botao"; }
+.faixa-dica { display: none; }
+/* celular: os pacotes correm de lado, um por vez, em vez de quatro empilhados (07/11/2026) */
+@media (max-width: 699px) {
+  .faixa-dica { display: block; margin: 0 0 10px; font: 500 .78rem/1.3 var(--mono); color: var(--tinta-suave); }
+  .prontos { display: grid; grid-auto-flow: column; grid-auto-columns: 86%; gap: 12px; margin: 0 -16px; padding: 4px 16px 16px; border-top: 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding: 0 16px; scrollbar-width: thin; }
+  .pronto { scroll-snap-align: start; grid-template-rows: auto 1fr auto auto; align-content: start; padding: 18px 16px; border: 1px solid var(--linha-forte); border-radius: 6px; background: var(--folha); }
+  .pronto .pronto-clipes { align-self: start; }
+  .pronto-site { grid-template-rows: 1fr auto; }
+  .pronto-destaque { border: 2px solid var(--cor); }
+  .pronto-destaque::before { display: none; }
+}
 .pronto-site .pacote-nome { font-stretch: 80%; }
 :root:not(.js) [data-escolher-pacote] { display: none; }
 
@@ -454,7 +472,9 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
   .duvidas { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; align-items: start; }
   .contato-dentro { grid-template-columns: 1fr 1.3fr; align-items: start; gap: 40px; }
   .barra-pacote { left: auto; right: 24px; bottom: 24px; min-width: 380px; }
+  .barra-pacote.vazia { display: none; }
   .perguntas { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+  .raiox-mini { top: 86px; }
   /* no tablet, só o marcador da seção atual ganha o nome na régua */
   .regua-marca:not(.atual) { font-size: 0; padding: 0; }
 }
@@ -498,6 +518,7 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
   .raiox-grade { grid-template-columns: minmax(0, 1fr) 360px; gap: 36px; align-items: start; }
   .raiox-resultado { position: sticky; top: 120px; }
   .barra-pacote { display: none !important; }
+  .raiox-mini { display: none; }
   body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 28px; }
 }
 

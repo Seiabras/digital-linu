@@ -25,9 +25,9 @@
   <link rel="canonical" href="https://digital.linupedia.com.br/">
   <link rel="preload" href="fontes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script src="js/tema-inicio.js?v=b2e4d710"></script>
-  <link rel="stylesheet" href="css/estilo.css?v=3faf4108">
+  <link rel="stylesheet" href="css/estilo.css?v=8ed8e602">
   <link rel="stylesheet" href="css/movimento.css?v=6c3684a3">
-  <script src="js/digital.js?v=46705820" defer></script>
+  <script src="js/digital.js?v=98319d8b" defer></script>
   <script src="js/linu-vivo.js?v=daf0f399" defer></script>
   <script src="js/movimento.js?v=c068d761" defer></script>
 </head>
@@ -137,6 +137,11 @@
         <p class="secao-sub" data-mov="sobe">Oito perguntas de sim ou não. A cada resposta, o raio-X mostra o que falta e por quê, e você leva
           para o pacote com um toque.</p>
         <div class="raiox-grade">
+          <!-- celular e tablet: o medidor fica preso no alto enquanto a pessoa responde, e leva ao resultado -->
+          <a class="raiox-mini" href="#raiox-resultado" data-raiox-mini hidden>
+            <span class="medidor medidor-mini" aria-hidden="true" data-medidor-mini><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+            <span data-raiox-mini-texto>0 de 8</span><span class="raiox-mini-ver">Ver o resultado ↓</span>
+          </a>
           <div class="perguntas" data-mov-grupo="sobe">
             <fieldset class="pergunta" data-pergunta="maps">
               <legend>Quem procura no Google Maps acha o seu negócio, com horário e fotos?</legend>
@@ -180,7 +185,7 @@
             </fieldset>
           </div>
           <!-- O resultado como o painel de medição do editor: oito barras, uma por pergunta (laranja = falta algo) -->
-          <div class="raiox-resultado" aria-live="polite">
+          <div class="raiox-resultado" id="raiox-resultado" aria-live="polite">
             <p class="painel-rotulo" aria-hidden="true">Medição</p>
             <div class="medidor" aria-hidden="true" data-medidor>
               <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -419,6 +424,7 @@
       <div class="dentro">
         <div class="cabeca"><span class="tc" aria-hidden="true">00:01:10:00</span><h2 data-mov="palavras">Pacotes prontos</h2></div>
         <p class="secao-sub" data-mov="sobe">Sequências que costumam funcionar juntas. Escolha uma e mude o que quiser antes de pedir.</p>
+        <p class="faixa-dica" aria-hidden="true">Arraste para o lado: são 4 pacotes →</p>
         <ol class="prontos" data-mov-grupo="sobe">
           <li class="pronto">
             <div class="pronto-info">
@@ -611,11 +617,12 @@
     </section>
   </main>
 
-  <!-- No celular e no tablet, o pacote fica preso embaixo, ao alcance do polegar -->
-  <div class="barra-pacote" data-barra hidden>
+  <!-- No celular e no tablet, o pacote fica preso embaixo, ao alcance do polegar; vazio, a barra fica só com o pedir
+       (desde 07/11/2026), e some na abertura, na sequência e no contato -->
+  <aside class="barra-pacote" data-barra aria-label="O seu pacote" hidden>
     <span class="barra-texto" data-barra-texto aria-live="polite"></span>
     <a class="botao botao-pequeno" href="#contato">Pedir orçamento</a>
-  </div>
+  </aside>
 
   <footer class="rodape" data-tc-fim="150">
     <div class="dentro rodape-dentro">

@@ -185,12 +185,13 @@
     var n = escolhidos.length;
     vazio.hidden = n > 0;
     limpar.hidden = n === 0;
-    barra.hidden = n === 0;
+    barra.hidden = false;
+    barra.classList.toggle("vazia", n === 0);   // vazia, só no celular (no tablet, o topo já tem o pedir)
     var est = estimativa(escolhidos);
     total.hidden = totalFormulario.hidden = !est;
     total.textContent = est ? "Estimativa: " + est : "";
     totalFormulario.textContent = est ? "Estimativa: " + est + ". O preço certo vem na proposta." : "";
-    barraTexto.textContent = n ? contagem(n) + (est ? ": " + est.replace("a partir de ", "") : " no pacote") : "";
+    barraTexto.textContent = n ? contagem(n) + (est ? ": " + est.replace("a partir de ", "") : " no pacote") : "Pacote vazio";
     noFormulario.textContent = n ? escolhidos.map(function (id) { return nomes[id]; }).join(", ")
       : "Nenhum serviço escolhido: tudo bem, conte na mensagem.";
     escreverMensagem();
@@ -228,6 +229,7 @@
       barra.classList.toggle("escondida", algum);
     }, { threshold: 0.15 });
     olhar.observe(document.getElementById("contato"));
+    olhar.observe(document.getElementById("inicio"));
     olhar.observe(document.querySelector("[data-pacote]"));
   }
 
@@ -387,6 +389,10 @@
   var rxUsar = document.querySelector("[data-raiox-usar]");
   var rxTotal = document.querySelector("[data-raiox-total]");
   var medidor = document.querySelectorAll("[data-medidor] span");
+  var medidorMini = document.querySelectorAll("[data-medidor-mini] span");
+  var rxMini = document.querySelector("[data-raiox-mini]");
+  var rxMiniTexto = document.querySelector("[data-raiox-mini-texto]");
+  rxMini.hidden = false;
   var rxIds = [];
   var respostas = {};
   try { respostas = JSON.parse(ler("digital-raiox")) || {}; } catch (e) {}
@@ -399,7 +405,7 @@
       var marcada = f.querySelector("input:checked");
       var rec = marcada && RAIOX[k][marcada.value];
       // uma barra por pergunta: apagada sem resposta, clara sem falta, laranja quando falta algo
-      medidor[i].className = !marcada ? "" : rec ? "falta" : "sim";
+      medidor[i].className = medidorMini[i].className = !marcada ? "" : rec ? "falta" : "sim";
       if (!marcada) return;
       n++;
       respostas[k] = marcada.value;
@@ -414,6 +420,7 @@
     });
     guardar("digital-raiox", JSON.stringify(respostas));
     rxContagem.textContent = n + " de " + perguntas.length + " respondidas";
+    rxMiniTexto.textContent = n + " de " + perguntas.length;
     if (n === perguntas.length && rxIds.length === 0) {
       rxIds = ["google-ads"];
       var li = document.createElement("li");

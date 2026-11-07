@@ -48,6 +48,10 @@ apontam um para o outro, mas cada um vive no seu repositório.
   cartão, o JSON-LD e o total escrito dos pacotes prontos.
 - **Celular mais curto:** desde 07/11/2026 cada trilha mostra o clipe mais pedido (`data-destaque`) primeiro e os
   outros rolando de lado dentro dela, no lugar do antigo “Ver todos os 17 serviços”.
+- **Três versões, os acertos de 07/11/2026:** no celular, os quatro pacotes prontos correm de lado, um por vez; a barra
+  de baixo fica sempre lá depois da abertura (vazia, só “Pacote vazio” e o Pedir orçamento; no tablet, vazia, some,
+  porque o topo já tem o botão); no celular e no tablet, o medidor do raio-X fica preso no alto enquanto a pessoa
+  responde, com a contagem e o atalho “Ver o resultado” (no computador, o resultado já fica parado ao lado).
 - **Pacotes prontos:** Começar, Crescer e Completo marcam os serviços de uma vez, com o total; o quarto leva ao Linu
   Sites.
 - **Trabalhos:** só o que é de verdade: a identidade da família Linu e os sites do Linu Sites. O terceiro arquivo espera
