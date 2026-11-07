@@ -20,6 +20,7 @@ apontam um para o outro, mas cada um vive no seu repositório.
 | `img/` | O Linu (`linu-camera.png` e `linu-frente.png`, em pixel art), os ícones do site e a imagem de compartilhar (`compartilhar.png`, 1200 × 630). |
 | `fontes/` | Archivo (textos e títulos) e JetBrains Mono (timecodes), licença OFL (`OFL-archivo.txt`, `OFL-jetbrains-mono.txt`), servidas pelo próprio site. |
 | `robots.txt`, `sitemap.xml` | Para os buscadores. |
+| `ferramentas/conferir-visual.mjs` | A conferência visual que o Actions roda antes de publicar (cópia do `linuarquivos/modelos/ferramentas/`): 390, 820 e 1280 px, claro e escuro; reprova com rolagem lateral, erro no console, arquivo faltando ou falha séria de acessibilidade, e guarda as capturas como artefato. No computador: `node ferramentas/conferir-visual.mjs --raiz . --playwright <pasta do playwright> --axe <axe.min.js>`. |
 | `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. |
 | `IDENTIDADE.md` | As decisões de identidade (o objeto, as cores, as fontes, a voz, o que evitar). Ler antes de mexer em tela. |
 | `DIRETRIZES-UX.md` | As diretrizes de interface e desempenho de todos os projetos. |
