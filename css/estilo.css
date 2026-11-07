@@ -167,8 +167,8 @@ h2 { font-size: clamp(2rem, 6vw, 2.9rem); font-weight: 800; font-stretch: 75%; l
 .monitor-nome { display: inline-flex; align-items: center; gap: 6px; color: var(--chrome-tinta); }
 .monitor-nome::before { content: ""; width: 8px; height: 8px; background: var(--fogo); }
 .visor-tela { position: relative; height: 252px; display: grid; place-items: end center; overflow: hidden; border-radius: 3px; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 4px), #0B0908; }
-/* o Linu sempre em escala inteira: 121 × 190 (1×) no celular, 242 × 380 (2×) do tablet em diante */
-.visor-linu { width: 121px; height: 190px; max-width: none; margin-bottom: 16px; }
+/* o Linu sempre em escala inteira: 119 × 186 (1×) no celular, 238 × 372 (2×) do tablet em diante */
+.visor-linu { width: 119px; height: 186px; max-width: none; margin-bottom: 16px; }
 .visor-rec { position: absolute; top: 12px; left: 14px; display: inline-flex; align-items: center; gap: 6px; font: 700 .78rem/1 var(--mono); color: #FFFFFF; }
 .visor-rec::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #EF4444; }
 .visor-tempo { position: absolute; top: 12px; right: 14px; font: 500 .78rem/1 var(--mono); color: #E7E0D8; font-variant-numeric: tabular-nums; }
@@ -204,7 +204,7 @@ h2 { font-size: clamp(2rem, 6vw, 2.9rem); font-weight: 800; font-stretch: 75%; l
 .visor-cartao { position: fixed; top: 104px; right: 12px; z-index: 25; width: 184px; padding: 4px; border-radius: 6px; background: var(--chrome); border: 1px solid var(--chrome-linha); box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .6); opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .2s ease-in, transform .2s ease-in; }
 .visor-cartao.aberto { opacity: 1; transform: none; transition: opacity .2s ease-out, transform .2s ease-out; }
 .visor-cartao .visor-tela { height: 150px; place-items: start center; }
-.visor-cartao .visor-linu { width: 121px; height: 190px; margin: 26px 0 0; }
+.visor-cartao .visor-linu { width: 119px; height: 186px; margin: 26px 0 0; }
 .visor-cartao .visor-rec, .visor-cartao .visor-tempo { top: 7px; font-size: .62rem; }
 .visor-cartao .visor-rec { left: 8px; }
 .visor-cartao .visor-tempo { right: 8px; }
@@ -423,7 +423,7 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
   .dentro { padding: 0 28px; }
   .abertura { padding: 52px 0 56px; }
   .visor-tela { height: 452px; }
-  .visor-linu { width: 242px; height: 380px; }
+  .visor-linu { width: 238px; height: 372px; }
   .secao { padding: 56px 0; }
   .menu-links a:not(.botao) { padding: 0 8px; }
   .menu-links a:not(.botao)::after { left: 8px; right: 8px; }
