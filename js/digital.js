@@ -1,5 +1,7 @@
-/* Digital Linu (6/11/2026): tema, menu do celular, filtro por área, o pacote que se monta com a estimativa
-   (07/11/2026), o formulário que escreve a mensagem e as entradas ao rolar. Sem biblioteca; tudo funciona sem JavaScript, menos o filtro e o pacote. */
+/* Digital Linu (6/11/2026; a linha do tempo de edição em 07/11/2026): tema com a foto, menu do celular, as trilhas
+   (mostrar só uma), a sequência que se monta com a estimativa, o formulário que escreve a mensagem, a régua com a
+   agulha que anda com a rolagem, as entradas ao rolar e o Raio-X. Sem biblioteca; sem JavaScript, a página continua
+   legível (sem a régua, o filtro, o pacote e o Raio-X). */
 (function () {
   "use strict";
   var raiz = document.documentElement;
@@ -32,6 +34,7 @@
   var visor = document.querySelector(".visor-tela");
   var legenda = document.querySelector("[data-visor-legenda]");
   var tempo = visor.querySelector(".visor-tempo");
+  var trilhoAgulha = document.querySelector("[data-trilho-agulha]");
   var tomada = 1, segundos = 12, cartao = null, sumirCartao;
   function visorNaTela() {
     var r = visor.getBoundingClientRect();
@@ -48,6 +51,8 @@
     var codigo = "00:00:" + String(segundos % 60).padStart(2, "0") + ":" + String((tomada * 7) % 24).padStart(2, "0");
     tempo.textContent = codigo;
     legenda.textContent = "Tomada " + tomada + ": clique! O Linu fotografou o modo " + (escuro ? "escuro." : "claro.");
+    // a agulha da barra de reprodução avança um passo a cada tomada (entre a entrada e a saída)
+    trilhoAgulha.style.setProperty("--passo", String(10 + ((tomada - 1) * 12) % 90));
     if (menosMovimento.matches) return;
     if (visorNaTela()) { clicar(visor); return; }
     if (!cartao) {
@@ -77,57 +82,53 @@
   links.addEventListener("click", function (e) { if (e.target.closest("a")) fecharMenu(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharMenu(); });
 
-  /* 3. Filtro por área */
-  var areas = document.querySelector("[data-areas]");
+  /* 3. As trilhas: tocar no nome mostra só aquela trilha (as outras ficam caladas, só com o nome); tocar de novo, ou em
+        "Todas as trilhas", volta tudo. O nome tocado fica no mesmo lugar da tela. */
+  var timeline = document.querySelector("[data-timeline]");
+  var trilhas = Array.prototype.slice.call(document.querySelectorAll(".trilha"));
   var servicos = Array.prototype.slice.call(document.querySelectorAll(".servico"));
-  areas.hidden = false;
-  // no celular, com "Todas", só os seis mais pedidos (data-destaque) e os já escolhidos aparecem até tocar em "ver todos"
-  var listaServicos = document.querySelector("[data-servicos]");
-  var verTodos = document.querySelector("[data-ver-todos]");
-  var abriuTodos = false;
-  function recolher(area) {
-    var recolhida = area === "todas" && !abriuTodos;
-    listaServicos.classList.toggle("recolhida", recolhida);
-    verTodos.hidden = !recolhida;
-  }
-  verTodos.addEventListener("click", function () {
-    abriuTodos = true;
-    recolher("todas");
-    var primeiro = listaServicos.querySelector(".servico:not([data-destaque])");
-    if (primeiro) primeiro.querySelector("[data-adicionar]").focus({ preventScroll: true });
+  var botaoTodas = timeline.querySelector('[data-area="todas"]');
+  botaoTodas.hidden = false;
+  // a largura de cada clipe no computador acompanha o valor (o mais caro é o mais longo), de 1 a 1,8 vez
+  servicos.forEach(function (s) {
+    var v = Math.min(1500, Math.max(250, Number(s.dataset.preco) || 400));
+    s.style.setProperty("--peso", (1 + (v - 250) / 1250 * 0.8).toFixed(2));
   });
-  function filtrar(area) {
-    recolher(area);
-    areas.querySelectorAll("[data-area]").forEach(function (b) {
+  function filtrar(area, ancora) {
+    var antes = ancora ? ancora.getBoundingClientRect().top : 0;
+    timeline.querySelectorAll("[data-area]").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.area === area));
     });
-    servicos.forEach(function (s) {
-      var mostra = area === "todas" || s.dataset.cat === area;
-      if (mostra && s.hidden) {
-        s.hidden = false;
-        s.classList.add("chegando");
-        requestAnimationFrame(function () { requestAnimationFrame(function () { s.classList.remove("chegando"); }); });
-      } else if (!mostra) {
-        s.hidden = true;
+    trilhas.forEach(function (t) {
+      var calar = area !== "todas" && t.dataset.trilha !== area;
+      var voltou = !calar && t.classList.contains("muda");
+      t.classList.toggle("muda", calar);
+      if (voltou) {
+        var clipes = t.querySelectorAll(".clipe");
+        clipes.forEach(function (c) { c.classList.add("chegando"); });
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          clipes.forEach(function (c) { c.classList.remove("chegando"); });
+        }); });
       }
     });
-    var ativo = areas.querySelector('[aria-pressed="true"]');
-    if (ativo && ativo.scrollIntoView && areas.scrollWidth > areas.clientWidth) {
-      ativo.scrollIntoView({ block: "nearest", inline: "center", behavior: menosMovimento.matches ? "auto" : "smooth" });
-    }
+    if (ancora) window.scrollBy(0, ancora.getBoundingClientRect().top - antes);
   }
-  areas.addEventListener("click", function (e) {
+  timeline.addEventListener("click", function (e) {
     var b = e.target.closest("[data-area]");
-    if (b) filtrar(b.dataset.area);
+    if (!b) return;
+    var area = b.dataset.area;
+    if (area !== "todas" && b.getAttribute("aria-pressed") === "true") area = "todas";
+    filtrar(area, b.classList.contains("trilha-cabeca") ? b : null);
   });
-  recolher("todas");
 
-  /* 4. O pacote: guardado no navegador, mostrado ao lado (computador), na barra de baixo (celular e tablet) e no
-        formulário */
+  /* 4. O pacote: guardado no navegador, mostrado na sequência embaixo das trilhas (presa embaixo da tela no
+        computador), na barra de baixo (celular e tablet) e no formulário */
   var nomes = {};
   var precos = {};
+  var areaDe = {};
   servicos.forEach(function (s) {
     nomes[s.dataset.id] = s.querySelector("h3").textContent;
+    areaDe[s.dataset.id] = s.dataset.cat;
     precos[s.dataset.id] = { valor: Number(s.dataset.preco) || 0, mensal: s.dataset.tipo === "mensal" };
   });
   // a estimativa "a partir de": o que é entrega única e o que é por mês, somados à parte
@@ -162,12 +163,15 @@
       var dentro = escolhidos.indexOf(s.dataset.id) >= 0;
       var b = s.querySelector("[data-adicionar]");
       b.setAttribute("aria-pressed", String(dentro));
-      b.textContent = dentro ? "No pacote ✓" : "Adicionar";
+      b.querySelector("[data-rotulo]").textContent = dentro ? "No pacote" : "Adicionar";
+      b.querySelector("use").setAttribute("href", dentro ? "#i-ok" : "#i-mais");
       s.classList.toggle("escolhido", dentro);
     });
     lista.textContent = "";
     escolhidos.forEach(function (id) {
       var li = document.createElement("li");
+      li.dataset.cat = areaDe[id];
+      li.style.setProperty("--peso", servicos.filter(function (s) { return s.dataset.id === id; })[0].style.getPropertyValue("--peso"));
       var tirar = document.createElement("button");
       tirar.type = "button";
       tirar.className = "pacote-tirar";
@@ -196,7 +200,7 @@
     if (i >= 0) escolhidos.splice(i, 1); else escolhidos.push(id);
     mostrarPacote();
   }
-  document.querySelector("[data-servicos]").addEventListener("click", function (e) {
+  timeline.addEventListener("click", function (e) {
     var b = e.target.closest("[data-adicionar]");
     if (b) alternar(b.closest(".servico").dataset.id);
   });
@@ -214,12 +218,17 @@
       alvo.scrollIntoView({ behavior: menosMovimento.matches ? "auto" : "smooth" });
     });
   });
-  // a barra de baixo some quando o formulário já está à vista
-  var contato = document.getElementById("contato");
+  // a barra de baixo some quando a sequência ou o formulário já estão à vista (não mostra o pacote duas vezes)
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (itens) {
-      barra.classList.toggle("escondida", itens[0].isIntersecting);
-    }, { threshold: 0.15 }).observe(contato);
+    var aVista = new Map();
+    var olhar = new IntersectionObserver(function (itens) {
+      itens.forEach(function (item) { aVista.set(item.target, item.isIntersecting); });
+      var algum = false;
+      aVista.forEach(function (v) { algum = algum || v; });
+      barra.classList.toggle("escondida", algum);
+    }, { threshold: 0.15 });
+    olhar.observe(document.getElementById("contato"));
+    olhar.observe(document.querySelector("[data-pacote]"));
   }
 
   /* 5. Formulário: validação na hora e a mensagem pronta para o WhatsApp e o e-mail */
@@ -285,7 +294,7 @@
   /* 7. Entradas ao rolar: um observer só, uma vez por elemento, escalonado nas listas; o que já está na tela no
         carregamento não é escondido (DIRETRIZES-UX.md, seção 1) */
   if ("IntersectionObserver" in window && !menosMovimento.matches) {
-    var alvos = document.querySelectorAll(".secao h2, .secao-sub, .servico, .pacote-pronto, .passos li, .duvidas details");
+    var alvos = document.querySelectorAll(".secao .cabeca, .secao-sub, .trilha, .pronto, .arquivo, .passos li, .duvidas details");
     var vistos = new IntersectionObserver(function (itens) {
       itens.forEach(function (item) {
         if (!item.isIntersecting) return;
@@ -303,6 +312,66 @@
       vistos.observe(el);
     });
   }
+
+  /* 8. A régua do editor: a página é uma sequência. Cada seção com data-tc começa num tempo (em segundos); a agulha
+        anda com a rolagem entre esses tempos, a leitura mostra o timecode (24 quadros por segundo) e a seção, e o link
+        do menu da seção atual fica marcado. Só transform, só ao rolar (nada roda sozinho). */
+  var faixa = document.querySelector("[data-regua-faixa]");
+  var agulha = document.querySelector("[data-agulha]");
+  var leituraTc = document.querySelector("[data-regua-tc]");
+  var leituraSecao = document.querySelector("[data-regua-secao]");
+  var secoes = Array.prototype.slice.call(document.querySelectorAll("main [data-tc]"));
+  var tempoFim = Number(document.querySelector("[data-tc-fim]").dataset.tcFim);
+  var linksMenu = {};
+  links.querySelectorAll('a[href^="#"]:not(.botao)').forEach(function (a) { linksMenu[a.getAttribute("href").slice(1)] = a; });
+  var marcas = secoes.map(function (s) {
+    var m = document.createElement("span");
+    m.className = "regua-marca";
+    m.textContent = s.dataset.curto || s.dataset.nome;
+    m.style.setProperty("--x", String(Number(s.dataset.tc) / tempoFim));
+    if (Number(s.dataset.tc) > 0) faixa.insertBefore(m, agulha);
+    return m;
+  });
+  function dois(n) { return String(n).padStart(2, "0"); }
+  function timecode(t) {
+    var s = Math.floor(t);
+    return "00:" + dois(Math.floor(s / 60)) + ":" + dois(s % 60) + ":" + dois(Math.floor((t - s) * 24));
+  }
+  var atual = -1, pedido = false;
+  function andar() {
+    pedido = false;
+    var topo = 104;
+    var maximo = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    var progresso = Math.min(1, window.scrollY / maximo);
+    // a linha de leitura desce de 104 px até o pé da tela conforme a página chega ao fim
+    var linha = topo + progresso * (window.innerHeight - topo);
+    var i = 0;
+    for (var k = 0; k < secoes.length; k++) if (secoes[k].getBoundingClientRect().top <= linha) i = k;
+    var r = secoes[i].getBoundingClientRect();
+    var fimTrecho = i + 1 < secoes.length ? secoes[i + 1].getBoundingClientRect().top : document.querySelector("[data-tc-fim]").getBoundingClientRect().bottom;
+    var t0 = Number(secoes[i].dataset.tc);
+    var t1 = i + 1 < secoes.length ? Number(secoes[i + 1].dataset.tc) : tempoFim;
+    var parte = Math.min(1, Math.max(0, (linha - r.top) / Math.max(1, fimTrecho - r.top)));
+    var t = t0 + (t1 - t0) * parte;
+    agulha.style.transform = "translateX(" + (t / tempoFim * faixa.clientWidth).toFixed(1) + "px)";
+    leituraTc.textContent = timecode(t);
+    if (i !== atual) {
+      if (atual >= 0) {
+        marcas[atual].classList.remove("atual");
+        var antigo = linksMenu[secoes[atual].id];
+        if (antigo) antigo.removeAttribute("aria-current");
+      }
+      atual = i;
+      marcas[i].classList.add("atual");
+      leituraSecao.textContent = secoes[i].dataset.nome;
+      var novo = linksMenu[secoes[i].id];
+      if (novo) novo.setAttribute("aria-current", "true");
+    }
+  }
+  function pedirAndar() { if (!pedido) { pedido = true; requestAnimationFrame(andar); } }
+  window.addEventListener("scroll", pedirAndar, { passive: true });
+  window.addEventListener("resize", pedirAndar);
+  andar();
 
   /* 9. Raio-X: cada "não" (ou "sim", no site) aponta um serviço, com o motivo; o resultado vai para o pacote */
   var RAIOX = {
@@ -322,6 +391,7 @@
   var rxSite = document.querySelector("[data-raiox-site]");
   var rxUsar = document.querySelector("[data-raiox-usar]");
   var rxTotal = document.querySelector("[data-raiox-total]");
+  var medidor = document.querySelectorAll("[data-medidor] span");
   var rxIds = [];
   var respostas = {};
   try { respostas = JSON.parse(ler("digital-raiox")) || {}; } catch (e) {}
@@ -329,13 +399,15 @@
     var n = 0;
     rxIds = [];
     rxLista.textContent = "";
-    perguntas.forEach(function (f) {
+    perguntas.forEach(function (f, i) {
       var k = f.dataset.pergunta;
       var marcada = f.querySelector("input:checked");
+      var rec = marcada && RAIOX[k][marcada.value];
+      // uma barra por pergunta: apagada sem resposta, clara sem falta, laranja quando falta algo
+      medidor[i].className = !marcada ? "" : rec ? "falta" : "sim";
       if (!marcada) return;
       n++;
       respostas[k] = marcada.value;
-      var rec = RAIOX[k][marcada.value];
       if (!rec) return;
       rxIds.push(rec[0]);
       var li = document.createElement("li");
@@ -374,8 +446,11 @@
     rxIds.forEach(function (id) { if (escolhidos.indexOf(id) < 0) escolhidos.push(id); });
     mostrarPacote();
     filtrar("todas");
-    rxUsar.textContent = "No pacote ✓";
-    setTimeout(function () { rxUsar.textContent = "Levar para o meu pacote"; }, 1600);
+    var rotulo = rxUsar.querySelector("[data-rotulo]");
+    var icone = rxUsar.querySelector("use");
+    rotulo.textContent = "No pacote";
+    icone.setAttribute("href", "#i-ok");
+    setTimeout(function () { rotulo.textContent = "Levar para o meu pacote"; icone.setAttribute("href", "#i-mais"); }, 1600);
     document.getElementById("servicos").scrollIntoView({ behavior: menosMovimento.matches ? "auto" : "smooth" });
   });
   lerRaiox();

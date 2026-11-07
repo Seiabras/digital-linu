@@ -12,13 +12,13 @@ apontam um para o outro, mas cada um vive no seu repositório.
 
 | Arquivo / pasta | O que tem |
 |---|---|
-| `index.html` | A página: abertura com o visor, o Raio-X, serviços (17, em seis áreas, com preço), pacotes prontos, trabalhos, como funciona, dúvidas e orçamento. |
+| `index.html` | A página, montada como um programa de edição: a régua com a agulha, a abertura com o monitor, o Raio-X, a linha do tempo dos serviços (17 clipes em seis trilhas, com preço) e a sequência do pacote, pacotes prontos, trabalhos, como funciona, dúvidas e orçamento. |
 | `404.html` | Página de erro (o Caddy mostra em qualquer endereço que não existe). |
 | `css/estilo.css` | Visual, com as três versões (celular até 699 px, tablet até 1099 px, computador) e o modo claro e escuro. |
 | `js/tema-inicio.js` | Aplica o tema escolhido antes de pintar. |
-| `js/digital.js` | Tema, menu, filtro por área, o “ver todos” do celular, o pacote com a estimativa, o formulário, voltar ao topo, entradas ao rolar e o Raio-X. |
-| `img/` | O Linu (`linu-frente.png`, em pixel art), os ícones do site e a imagem de compartilhar (`compartilhar.png`, 1200 × 630). |
-| `fontes/` | Nunito (licença OFL, `OFL.txt`), servida pelo próprio site. |
+| `js/digital.js` | Tema com a foto, menu, as trilhas (mostrar só uma), a sequência com a estimativa, o formulário, voltar ao topo, entradas ao rolar, a régua do editor e o Raio-X. |
+| `img/` | O Linu (`linu-camera.png` e `linu-frente.png`, em pixel art), os ícones do site e a imagem de compartilhar (`compartilhar.png`, 1200 × 630). |
+| `fontes/` | Archivo (textos e títulos) e JetBrains Mono (timecodes), licença OFL (`OFL-archivo.txt`, `OFL-jetbrains-mono.txt`), servidas pelo próprio site. |
 | `robots.txt`, `sitemap.xml` | Para os buscadores. |
 | `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. |
 | `IDENTIDADE.md` | As decisões de identidade (o objeto, as cores, as fontes, a voz, o que evitar). Ler antes de mexer em tela. |
@@ -26,8 +26,17 @@ apontam um para o outro, mas cada um vive no seu repositório.
 
 ## O que a página faz
 
-- **Monte o seu pacote:** cada serviço tem “Adicionar”; o pacote fica guardado no navegador (`localStorage`,
-  `digital-pacote`) e aparece ao lado (computador) ou numa barra presa embaixo (celular e tablet).
+- **A linha do tempo de edição (07/11/2026):** a página inteira é um editor de vídeo (detalhes no `IDENTIDADE.md`).
+  A régua embaixo do topo mostra o timecode e a seção, e a agulha anda com a rolagem: cada seção tem `data-tc` (o
+  tempo em segundos) e `data-nome` (e `data-curto`, se o nome não cabe na régua); o rodapé tem o fim em `data-tc-fim`.
+  Seção nova: pôr esses atributos, e a régua cria o marcador sozinha.
+- **Monte o seu pacote:** cada serviço é um clipe com “Adicionar”; o pacote fica guardado no navegador
+  (`localStorage`, `digital-pacote`) e aparece na sequência embaixo das trilhas (presa embaixo da tela no computador) e
+  numa barra presa embaixo (celular e tablet), que some quando a sequência ou o formulário estão à vista.
+- **As trilhas:** cada área é uma trilha (V1 Vídeo, V2 Redes sociais, V3 Marca, A1 Anúncios, A2 Ser encontrado, A3
+  Automação). Tocar no nome mostra só ela; tocar de novo ou em “Todas as trilhas” volta tudo. No celular e no tablet os
+  clipes rolam de lado só dentro da trilha; no computador cabem todos. Serviço novo: um `<article class="clipe servico">`
+  dentro da `trilha-faixa` da área, com `data-cat` igual ao `data-trilha`, e a contagem do nome da trilha.
 - **Raio-X do negócio:** oito perguntas de sim ou não (Google Maps, perfil, constância, vídeo, anúncio, marca,
   WhatsApp, site). Cada falta mostra o serviço e o motivo; “Levar para o meu pacote” junta tudo ao pacote, e quem não
   tem site recebe o link do Linu Sites. Respostas no navegador (`localStorage`, `digital-raiox`).
@@ -35,11 +44,11 @@ apontam um para o outro, mas cada um vive no seu repositório.
   linha do preço. O pacote, a barra de baixo, o formulário, a mensagem, o Raio-X e os pacotes prontos somam à parte o
   que é entrega única e o que é por mês. Para mudar um preço: o `data-preco`, a linha do cartão e o `minPrice` do
   JSON-LD no `<head>`; os totais dos pacotes prontos se refazem sozinhos (o texto fixo vale só sem JavaScript).
-- **Celular mais curto:** com “Todas”, só os seis mais pedidos (`data-destaque`) e os já escolhidos aparecem, até
-  tocar em “Ver todos os 17 serviços”.
+- **Celular mais curto:** desde 07/11/2026 cada trilha mostra o clipe mais pedido (`data-destaque`) primeiro e os
+  outros rolando de lado dentro dela, no lugar do antigo “Ver todos os 17 serviços”.
 - **Pacotes prontos:** Começar, Crescer e Completo marcam os serviços de uma vez, com o total; o quarto leva ao Linu
   Sites.
-- **Trabalhos:** só o que é de verdade: a identidade da família Linu e os sites do Linu Sites. O terceiro cartão espera
+- **Trabalhos:** só o que é de verdade: a identidade da família Linu e os sites do Linu Sites. O terceiro arquivo espera
   os primeiros clientes de vídeo e redes, que entram com permissão.
 - **Orçamento:** nome e negócio validados na hora; a mensagem sai escrita no WhatsApp ou no e-mail, com o pacote.
   O que foi digitado fica guardado no navegador.
@@ -52,7 +61,8 @@ apontam um para o outro, mas cada um vive no seu repositório.
   aponta para cá.
 - **Dúvidas com os termos simples:** pagamento (metade no aceite e metade na entrega; mensal no começo do mês), duas
   rodadas de ajuste por entrega e o mensal sem fidelidade, com 30 dias de aviso. As mesmas regras do Linu Sites.
-- **Compartilhar e Google:** `img/compartilhar.png` (1200 × 630, o Linu no visor) nas etiquetas `og:` e
+- **Compartilhar e Google:** `img/compartilhar.png` (1200 × 630, o Linu no monitor e as trilhas embaixo; refeita em
+  07/11/2026, renderizada no Playwright) nas etiquetas `og:` e
   `twitter:card`, e os dados estruturados (`ProfessionalService`, com os 17 serviços) no `<head>`.
 
 ## Ver no computador
@@ -66,3 +76,7 @@ python3 -m http.server 8000
 7 arquivos e 127 KB na abertura, medidos sem compressão (HTML, CSS, 2 scripts, a fonte, o logo e o Linu; o orçamento das
 diretrizes é de 25 arquivos e 300 KB), 475 elementos na página e nenhuma rolagem lateral em 390, 820 e 1280 px. Em 07/11/2026, com os seis serviços do celular, a página caiu de
 10.930 px para 8.598 px de altura em 390 px.
+
+Em 07/11/2026, com a linha do tempo: 390 px com 9.983 px de altura, 820 px com 7.519 px e 1280 px com 6.775 px, nenhuma
+rolagem lateral nas três larguras, claro e escuro. As fontes passaram de 39 KB (Nunito) para 121 KB (Archivo variável
+com o eixo de largura + JetBrains Mono).
