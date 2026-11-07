@@ -306,27 +306,7 @@
     window.scrollTo({ top: 0, behavior: menosMovimento.matches ? "auto" : "smooth" });
   });
 
-  /* 7. Entradas ao rolar: um observer só, uma vez por elemento, escalonado nas listas; o que já está na tela no
-        carregamento não é escondido (DIRETRIZES-UX.md, seção 1) */
-  if ("IntersectionObserver" in window && !menosMovimento.matches) {
-    var alvos = document.querySelectorAll(".secao .cabeca, .secao-sub, .trilha, .pronto, .arquivo, .passos li, .duvidas details");
-    var vistos = new IntersectionObserver(function (itens) {
-      itens.forEach(function (item) {
-        if (!item.isIntersecting) return;
-        item.target.classList.remove("antes");
-        vistos.unobserve(item.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px" });
-    var altura = window.innerHeight;
-    alvos.forEach(function (el) {
-      if (el.getBoundingClientRect().top < altura) return;
-      var irmaos = el.parentElement.children;
-      var posicao = Array.prototype.indexOf.call(irmaos, el) % 6;
-      el.style.setProperty("--atraso", posicao * 50 + "ms");
-      el.classList.add("antes");
-      vistos.observe(el);
-    });
-  }
+  /* 7. Entradas ao rolar: js/movimento.js (o kit do linuarquivos), pelos atributos data-mov do index.html */
 
   /* 8. A régua do editor: a página é uma sequência. Cada seção com data-tc começa num tempo (em segundos); a agulha
         anda com a rolagem entre esses tempos, a leitura mostra o timecode (24 quadros por segundo) e a seção, e o link

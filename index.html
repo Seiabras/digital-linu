@@ -26,8 +26,10 @@
   <link rel="preload" href="fontes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script src="js/tema-inicio.js?v=1"></script>
   <link rel="stylesheet" href="css/estilo.css?v=5">
+  <link rel="stylesheet" href="css/movimento.css?v=1">
   <script src="js/digital.js?v=5" defer></script>
   <script src="js/linu-vivo.js?v=1" defer></script>
+  <script src="js/movimento.js?v=1" defer></script>
 </head>
 <body>
   <!-- Os ícones do Digital Linu, desenhados para ele (traço 2, pontas redondas), no lugar de emoji: as seis trilhas e os
@@ -131,11 +133,11 @@
          Sem JavaScript, a seção não aparece. -->
     <section class="secao raiox" id="raiox" data-tc="15" data-nome="Raio-X">
       <div class="dentro">
-        <div class="cabeca"><span class="tc" aria-hidden="true">00:00:15:00</span><h2>Raio-X do seu negócio</h2></div>
-        <p class="secao-sub">Oito perguntas de sim ou não. A cada resposta, o raio-X mostra o que falta e por quê, e você leva
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:00:15:00</span><h2 data-mov="palavras">Raio-X do seu negócio</h2></div>
+        <p class="secao-sub" data-mov="sobe">Oito perguntas de sim ou não. A cada resposta, o raio-X mostra o que falta e por quê, e você leva
           para o pacote com um toque.</p>
         <div class="raiox-grade">
-          <div class="perguntas">
+          <div class="perguntas" data-mov-grupo="sobe">
             <fieldset class="pergunta" data-pergunta="maps">
               <legend>Quem procura no Google Maps acha o seu negócio, com horário e fotos?</legend>
               <label><input type="radio" name="rx-maps" value="sim"><span>Sim</span></label>
@@ -200,8 +202,8 @@
          só ela; tocar de novo, ou em "Todas as trilhas", volta tudo (js/digital.js, blocos 3 e 4). -->
     <section class="secao secao-mesa" id="servicos" data-tc="35" data-nome="Serviços">
       <div class="dentro">
-        <div class="cabeca"><span class="tc" aria-hidden="true">00:00:35:00</span><h2>Serviços</h2></div>
-        <p class="secao-sub">Cada serviço é um clipe. Toque em <b>Adicionar</b> e ele vai para a sua sequência, com a
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:00:35:00</span><h2 data-mov="palavras">Serviços</h2></div>
+        <p class="secao-sub" data-mov="sobe">Cada serviço é um clipe. Toque em <b>Adicionar</b> e ele vai para a sua sequência, com a
           estimativa somando, e a mensagem do orçamento sai pronta.</p>
         <p class="servicos-nota" id="servicos-nota">Valores de referência, “a partir de”. O preço certo vem na proposta, por
           escrito. A verba dos anúncios é à parte e vai direto para o Meta ou o Google.</p>
@@ -213,7 +215,7 @@
           </div>
           <div class="timeline-regua" aria-hidden="true"><span>00:00</span><span>00:10</span><span>00:20</span><span>00:30</span><span>00:40</span><span>00:50</span></div>
 
-          <div class="trilhas" data-servicos>
+          <div class="trilhas" data-mov-grupo="lado" data-servicos>
             <div class="trilha" data-trilha="video">
               <button type="button" class="trilha-cabeca" data-area="video" aria-pressed="false">
                 <span class="trilha-id">V1</span>
@@ -415,9 +417,9 @@
     <!-- Pacotes prontos: sequências já montadas, cada uma com os seus clipes na cor da trilha -->
     <section class="secao secao-alt" id="pacotes" data-tc="70" data-nome="Pacotes">
       <div class="dentro">
-        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:10:00</span><h2>Pacotes prontos</h2></div>
-        <p class="secao-sub">Sequências que costumam funcionar juntas. Escolha uma e mude o que quiser antes de pedir.</p>
-        <ol class="prontos">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:10:00</span><h2 data-mov="palavras">Pacotes prontos</h2></div>
+        <p class="secao-sub" data-mov="sobe">Sequências que costumam funcionar juntas. Escolha uma e mude o que quiser antes de pedir.</p>
+        <ol class="prontos" data-mov-grupo="sobe">
           <li class="pronto">
             <div class="pronto-info">
               <h3 class="pacote-nome">Começar</h3>
@@ -475,10 +477,10 @@
          permissão (PENDENTES do linuarquivos) -->
     <section class="secao" id="trabalhos" data-tc="85" data-nome="Trabalhos">
       <div class="dentro">
-        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:25:00</span><h2>Trabalhos</h2></div>
-        <p class="secao-sub">O que a equipe já fez e pode mostrar. Os trabalhos de clientes entram aqui com a permissão de
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:25:00</span><h2 data-mov="palavras">Trabalhos</h2></div>
+        <p class="secao-sub" data-mov="sobe">O que a equipe já fez e pode mostrar. Os trabalhos de clientes entram aqui com a permissão de
           cada um.</p>
-        <ul class="arquivos">
+        <ul class="arquivos" data-mov-grupo="sobe">
           <li class="arquivo">
             <span class="arquivo-miniatura" data-cat="marca" aria-hidden="true"><svg class="icone"><use href="#i-marca"/></svg></span>
             <div class="arquivo-texto">
@@ -511,9 +513,9 @@
 
     <section class="secao secao-alt" id="como" data-tc="100" data-nome="Como funciona" data-curto="Etapas">
       <div class="dentro">
-        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:40:00</span><h2>Como funciona</h2></div>
-        <p class="secao-sub">Como uma linha do tempo de edição: cada etapa é um trecho, e nada vai ao ar sem você aprovar.</p>
-        <ol class="passos">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:40:00</span><h2 data-mov="palavras">Como funciona</h2></div>
+        <p class="secao-sub" data-mov="sobe">Como uma linha do tempo de edição: cada etapa é um trecho, e nada vai ao ar sem você aprovar.</p>
+        <ol class="passos" data-mov-grupo="lado">
           <li><span class="passo-tempo">00:00</span><b>Conversa</b><span>Você conta o negócio, o público e o que quer alcançar. Pode ser só uma ideia.</span></li>
           <li><span class="passo-tempo">00:15</span><b>Proposta</b><span>Chega o plano por escrito, com o que entra, o prazo e o preço de cada parte.</span></li>
           <li><span class="passo-tempo">00:30</span><b>Produção</b><span>A equipe de cada área faz a sua parte, e você aprova antes de ir ao ar.</span></li>
@@ -524,8 +526,8 @@
 
     <section class="secao" id="duvidas" data-tc="115" data-nome="Dúvidas">
       <div class="dentro duvidas-dentro">
-        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:55:00</span><h2>Dúvidas</h2></div>
-        <div class="duvidas">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:55:00</span><h2 data-mov="palavras">Dúvidas</h2></div>
+        <div class="duvidas" data-mov-grupo="sobe">
           <details>
             <summary>Quanto custa?</summary>
             <p>Cada serviço mostra o valor “a partir de”, e o pacote soma na hora: o que é entrega única (um logo, um vídeo
@@ -572,7 +574,7 @@
     <section class="secao secao-alt contato" id="contato" data-tc="130" data-nome="Orçamento">
       <div class="dentro contato-dentro">
         <div class="contato-texto">
-          <div class="cabeca"><span class="tc" aria-hidden="true">00:02:10:00</span><h2>Peça o orçamento</h2></div>
+          <div class="cabeca"><span class="tc" aria-hidden="true">00:02:10:00</span><h2 data-mov="palavras">Peça o orçamento</h2></div>
           <p>Confira o pacote, conte um pouco do negócio e mande. A mensagem já sai escrita no WhatsApp ou no e-mail.</p>
           <p class="contato-canais">WhatsApp (61) 99667-2610<br>contato@linupedia.com.br</p>
         </div>

@@ -400,7 +400,6 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
 .topo-voltar { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 700; }
 
 /* Entradas ao rolar (js/digital.js): só transform e opacity */
-.antes { opacity: 0; transform: translateY(14px); }
 .cabeca, .secao-sub, .trilha, .pronto, .arquivo, .passos li, .duvidas details { transition-property: opacity, transform, background-color; transition-duration: .24s; transition-timing-function: var(--entrada); transition-delay: var(--atraso, 0ms); }
 
 /* ===== Celular (até 699 px): o menu no botão, a régua só com o tempo e a seção ===== */
@@ -505,7 +504,7 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition-duration: 0s !important; transition-delay: 0s !important; }
-  .antes, .clipe.chegando { opacity: 1; transform: none; }
+  .clipe.chegando { opacity: 1; transform: none; }
 }
 @view-transition { navigation: auto; }
 .erro { min-height: 100vh; display: grid; align-items: center; border-bottom: 0; }
