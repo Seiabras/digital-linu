@@ -59,8 +59,8 @@ apontam um para o outro, mas cada um vive no seu repositório.
 - **A foto ao trocar o tema (07/11/2026):** o botão do sol e da lua faz a câmera fotografar o Linu: o obturador fecha e
   abre, vem o flash, o Linu posa e a legenda conta a tomada (“Tomada 2: clique!”). Com o visor fora da tela, a cena
   aparece num cartão no canto e some sozinha. Só ao toque, nunca em loop; com “reduzir movimento”, só a legenda muda.
-- **A faixa de ida e volta:** no alto, “Procurando um site ou aplicativo? Conheça o Linu Sites”; lá, a mesma faixa
-  aponta para cá.
+- **A faixa da família (07/11/2026):** no alto, “Parte da família Linu, com …”, levando para a Família Linu
+  (https://familia.linupedia.com.br). Todos os irmãos apontam para lá, e não mais um para o outro.
 - **Dúvidas com os termos simples:** pagamento (metade no aceite e metade na entrega; mensal no começo do mês), duas
   rodadas de ajuste por entrega e o mensal sem fidelidade, com 30 dias de aviso. As mesmas regras do Linu Sites.
 - **Compartilhar e Google:** `img/compartilhar.png` (1200 × 630, o Linu no monitor e as trilhas embaixo; refeita em
