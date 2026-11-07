@@ -21,6 +21,7 @@ apontam um para o outro, mas cada um vive no seu repositório.
 | `fontes/` | Archivo (textos e títulos) e JetBrains Mono (timecodes), licença OFL (`OFL-archivo.txt`, `OFL-jetbrains-mono.txt`), servidas pelo próprio site. |
 | `robots.txt`, `sitemap.xml` | Para os buscadores. |
 | `ferramentas/conferir-visual.mjs` | A conferência visual que o Actions roda antes de publicar (cópia do `linuarquivos/modelos/ferramentas/`): 390, 820 e 1280 px, claro e escuro; reprova com rolagem lateral, erro no console, arquivo faltando ou falha séria de acessibilidade, e guarda as capturas como artefato. No computador: `node ferramentas/conferir-visual.mjs --raiz . --playwright <pasta do playwright> --axe <axe.min.js>`. |
+| `precos.json` e `ferramentas/precos-servicos.py` | **Os preços numa fonte só** (07/11/2026): o `precos.json` é a fonte; o script escreve no `index.html` o `data-preco`/`data-tipo`, a linha “a partir de” de cada serviço, o `minPrice` do JSON-LD e o total dos pacotes prontos. Para mudar um preço: editar o `precos.json` e rodar `python3 ferramentas/precos-servicos.py`. O Actions confere (`--conferir`) e não publica se a página discordar. A Família Linu lê este arquivo para as rotas. |
 | `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. |
 | `IDENTIDADE.md` | As decisões de identidade (o objeto, as cores, as fontes, a voz, o que evitar). Ler antes de mexer em tela. |
 | `DIRETRIZES-UX.md` | As diretrizes de interface e desempenho de todos os projetos. |
@@ -43,8 +44,8 @@ apontam um para o outro, mas cada um vive no seu repositório.
   tem site recebe o link do Linu Sites. Respostas no navegador (`localStorage`, `digital-raiox`).
 - **Preços “a partir de” (07/11/2026):** cada cartão tem `data-preco` e `data-tipo` (`unico` ou `mensal`), e a
   linha do preço. O pacote, a barra de baixo, o formulário, a mensagem, o Raio-X e os pacotes prontos somam à parte o
-  que é entrega única e o que é por mês. Para mudar um preço: o `data-preco`, a linha do cartão e o `minPrice` do
-  JSON-LD no `<head>`; os totais dos pacotes prontos se refazem sozinhos (o texto fixo vale só sem JavaScript).
+  que é entrega única e o que é por mês. Para mudar um preço: o `precos.json` e `python3 ferramentas/precos-servicos.py`, que acerta o
+  cartão, o JSON-LD e o total escrito dos pacotes prontos.
 - **Celular mais curto:** desde 07/11/2026 cada trilha mostra o clipe mais pedido (`data-destaque`) primeiro e os
   outros rolando de lado dentro dela, no lugar do antigo “Ver todos os 17 serviços”.
 - **Pacotes prontos:** Começar, Crescer e Completo marcam os serviços de uma vez, com o total; o quarto leva ao Linu

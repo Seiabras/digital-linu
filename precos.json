@@ -1,0 +1,80 @@
+{
+  "_leia": "Os preços de referência (“a partir de”) deste site, em reais. A página sai daqui: depois de mudar, rode python3 ferramentas/precos-servicos.py. A Família Linu lê este arquivo (do GitHub) para montar as rotas.",
+  "moeda": "BRL",
+  "servicos": {
+    "reels": {
+      "valor": 400,
+      "tipo": "mensal",
+      "detalhe": "4 vídeos"
+    },
+    "youtube": {
+      "valor": 400,
+      "tipo": "mensal",
+      "detalhe": "2 vídeos"
+    },
+    "institucional": {
+      "valor": 1500,
+      "tipo": "unico"
+    },
+    "cortes": {
+      "valor": 250,
+      "tipo": "unico",
+      "detalhe": "1 live ou aula"
+    },
+    "gestao": {
+      "valor": 900,
+      "tipo": "mensal"
+    },
+    "artes": {
+      "valor": 400,
+      "tipo": "unico"
+    },
+    "perfil": {
+      "valor": 300,
+      "tipo": "unico"
+    },
+    "identidade": {
+      "valor": 1200,
+      "tipo": "unico"
+    },
+    "cartao": {
+      "valor": 200,
+      "tipo": "unico"
+    },
+    "cardapio": {
+      "valor": 400,
+      "tipo": "unico"
+    },
+    "meta": {
+      "valor": 600,
+      "tipo": "mensal",
+      "detalhe": "sem a verba"
+    },
+    "google-ads": {
+      "valor": 600,
+      "tipo": "mensal",
+      "detalhe": "sem a verba"
+    },
+    "meu-negocio": {
+      "valor": 350,
+      "tipo": "unico"
+    },
+    "seo": {
+      "valor": 500,
+      "tipo": "unico"
+    },
+    "whatsapp": {
+      "valor": 400,
+      "tipo": "unico"
+    },
+    "email": {
+      "valor": 500,
+      "tipo": "unico",
+      "detalhe": "a montagem"
+    },
+    "ia": {
+      "valor": 1500,
+      "tipo": "unico"
+    }
+  }
+}
