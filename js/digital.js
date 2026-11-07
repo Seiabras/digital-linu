@@ -1,5 +1,5 @@
-/* Digital Linu (6/11/2026): tema, menu do celular, filtro por área, o pacote que se monta, o formulário que escreve
-   a mensagem e as entradas ao rolar. Sem biblioteca; tudo funciona sem JavaScript, menos o filtro e o pacote. */
+/* Digital Linu (6/11/2026): tema, menu do celular, filtro por área, o pacote que se monta com a estimativa
+   (07/11/2026), o formulário que escreve a mensagem e as entradas ao rolar. Sem biblioteca; tudo funciona sem JavaScript, menos o filtro e o pacote. */
 (function () {
   "use strict";
   var raiz = document.documentElement;
@@ -41,7 +41,23 @@
   var areas = document.querySelector("[data-areas]");
   var servicos = Array.prototype.slice.call(document.querySelectorAll(".servico"));
   areas.hidden = false;
+  // no celular, com "Todas", só os seis mais pedidos (data-destaque) e os já escolhidos aparecem até tocar em "ver todos"
+  var listaServicos = document.querySelector("[data-servicos]");
+  var verTodos = document.querySelector("[data-ver-todos]");
+  var abriuTodos = false;
+  function recolher(area) {
+    var recolhida = area === "todas" && !abriuTodos;
+    listaServicos.classList.toggle("recolhida", recolhida);
+    verTodos.hidden = !recolhida;
+  }
+  verTodos.addEventListener("click", function () {
+    abriuTodos = true;
+    recolher("todas");
+    var primeiro = listaServicos.querySelector(".servico:not([data-destaque])");
+    if (primeiro) primeiro.querySelector("[data-adicionar]").focus({ preventScroll: true });
+  });
   function filtrar(area) {
+    recolher(area);
     areas.querySelectorAll("[data-area]").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.area === area));
     });
@@ -64,14 +80,29 @@
     var b = e.target.closest("[data-area]");
     if (b) filtrar(b.dataset.area);
   });
-  document.querySelectorAll("[data-ir-area]").forEach(function (a) {
-    a.addEventListener("click", function () { filtrar(a.dataset.irArea); });
-  });
+  recolher("todas");
 
   /* 4. O pacote: guardado no navegador, mostrado ao lado (computador), na barra de baixo (celular e tablet) e no
         formulário */
   var nomes = {};
-  servicos.forEach(function (s) { nomes[s.dataset.id] = s.querySelector("h3").textContent; });
+  var precos = {};
+  servicos.forEach(function (s) {
+    nomes[s.dataset.id] = s.querySelector("h3").textContent;
+    precos[s.dataset.id] = { valor: Number(s.dataset.preco) || 0, mensal: s.dataset.tipo === "mensal" };
+  });
+  // a estimativa "a partir de": o que é entrega única e o que é por mês, somados à parte
+  function reais(v) { return "R$\u00a0" + v.toLocaleString("pt-BR"); }
+  function estimativa(ids) {
+    var unico = 0, mensal = 0;
+    ids.forEach(function (id) { var p = precos[id]; if (!p) return; if (p.mensal) mensal += p.valor; else unico += p.valor; });
+    var partes = [];
+    if (unico) partes.push(reais(unico));
+    if (mensal) partes.push(reais(mensal) + " por mês");
+    return partes.length ? "a partir de " + partes.join(" + ") : "";
+  }
+  document.querySelectorAll("[data-pacote-preco]").forEach(function (p) {
+    p.textContent = estimativa(p.dataset.pacotePreco.split(" "));
+  });
   var escolhidos = [];
   try { escolhidos = (JSON.parse(ler("digital-pacote")) || []).filter(function (id) { return nomes[id]; }); } catch (e) {}
 
@@ -81,6 +112,8 @@
   var barra = document.querySelector("[data-barra]");
   var barraTexto = document.querySelector("[data-barra-texto]");
   var noFormulario = document.querySelector("[data-formulario-pacote]");
+  var total = document.querySelector("[data-pacote-total]");
+  var totalFormulario = document.querySelector("[data-formulario-total]");
 
   function contagem(n) { return n === 1 ? "1 serviço" : n + " serviços"; }
   function mostrarPacote() {
@@ -109,7 +142,11 @@
     vazio.hidden = n > 0;
     limpar.hidden = n === 0;
     barra.hidden = n === 0;
-    barraTexto.textContent = n ? contagem(n) + " no pacote" : "";
+    var est = estimativa(escolhidos);
+    total.hidden = totalFormulario.hidden = !est;
+    total.textContent = est ? "Estimativa: " + est : "";
+    totalFormulario.textContent = est ? "Estimativa: " + est + ". O preço certo vem na proposta." : "";
+    barraTexto.textContent = n ? contagem(n) + (est ? ": " + est.replace("a partir de ", "") : " no pacote") : "";
     noFormulario.textContent = n ? escolhidos.map(function (id) { return nomes[id]; }).join(", ")
       : "Nenhum serviço escolhido: tudo bem, conte na mensagem.";
     escreverMensagem();
@@ -172,7 +209,10 @@
     var partes = ["Olá, Digital Linu! Quero um orçamento."];
     if (campo("nome").value.trim()) partes.push("Nome: " + campo("nome").value.trim());
     if (campo("negocio").value.trim()) partes.push("Negócio: " + campo("negocio").value.trim());
-    if (escolhidos.length) partes.push("Pacote: " + escolhidos.map(function (id) { return nomes[id]; }).join(", "));
+    if (escolhidos.length) {
+      partes.push("Pacote: " + escolhidos.map(function (id) { return nomes[id]; }).join(", "));
+      partes.push("Estimativa pela página: " + estimativa(escolhidos));
+    }
     if (campo("mensagem").value.trim()) partes.push(campo("mensagem").value.trim());
     return partes.join("\n");
   }
@@ -224,22 +264,6 @@
     });
   }
 
-  /* 8. Identidade visual: tocar numa cor copia o código */
-  var copiado = document.querySelector("[data-copiado]");
-  var limparAviso;
-  document.querySelectorAll("[data-copiar]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var codigo = b.dataset.copiar;
-      function avisar(ok) {
-        copiado.textContent = ok ? codigo + " copiado." : "Copie à mão: " + codigo;
-        clearTimeout(limparAviso);
-        limparAviso = setTimeout(function () { copiado.textContent = ""; }, 2500);
-      }
-      if (navigator.clipboard) navigator.clipboard.writeText(codigo).then(function () { avisar(true); }, function () { avisar(false); });
-      else avisar(false);
-    });
-  });
-
   /* 9. Raio-X: cada "não" (ou "sim", no site) aponta um serviço, com o motivo; o resultado vai para o pacote */
   var RAIOX = {
     maps: { nao: ["meu-negocio", "Quem procura no Google Maps ainda não acha você: é o primeiro passo, e o mais barato."] },
@@ -257,6 +281,7 @@
   var rxContagem = document.querySelector("[data-raiox-contagem]");
   var rxSite = document.querySelector("[data-raiox-site]");
   var rxUsar = document.querySelector("[data-raiox-usar]");
+  var rxTotal = document.querySelector("[data-raiox-total]");
   var rxIds = [];
   var respostas = {};
   try { respostas = JSON.parse(ler("digital-raiox")) || {}; } catch (e) {}
@@ -292,6 +317,8 @@
       rxLista.appendChild(li);
     }
     rxVazio.hidden = rxIds.length > 0;
+    rxTotal.hidden = rxIds.length === 0;
+    rxTotal.textContent = rxIds.length ? "Estimativa do recomendado: " + estimativa(rxIds) : "";
     rxSite.hidden = respostas.site !== "nao";
     rxUsar.hidden = rxIds.length === 0;
   }

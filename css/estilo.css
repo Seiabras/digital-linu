@@ -99,11 +99,6 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; }
 .botoes { display: flex; flex-wrap: wrap; gap: 12px; }
 .abertura .botao-linha { color: #FFFFFF; border-color: rgba(255, 255, 255, .55); }
 .abertura .botao-linha:hover { background: rgba(255, 255, 255, .12); }
-.abertura-areas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.abertura-areas a { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 10px 14px; border-radius: 14px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16); color: #FFFFFF; font-weight: 800; text-decoration: none; transition: background-color .2s ease-out, transform .15s ease-out; }
-.abertura-areas a:hover { background: rgba(255, 255, 255, .16); }
-.abertura-areas a:active { transform: scale(.97); }
-.abertura-areas .icone { color: #FDBA74; }
 .abertura :focus-visible { outline-color: #7DD3FC; }
 
 /* Seções */
@@ -128,13 +123,21 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; }
 @media (max-width: 1099px) { .servicos-lado { display: contents; } }
 
 .servicos { display: grid; gap: 10px; }
-.servico { position: relative; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "area botao" "titulo botao" "texto texto"; column-gap: 12px; padding: 14px 16px; border-radius: var(--raio); background: var(--cartao); border: 2px solid var(--linha); transition: border-color .2s ease-out, box-shadow .2s ease-out, opacity .22s var(--entrada), transform .22s var(--entrada); }
+.servico { position: relative; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "area botao" "titulo botao" "texto texto" "preco preco"; column-gap: 12px; padding: 14px 16px; border-radius: var(--raio); background: var(--cartao); border: 2px solid var(--linha); transition: border-color .2s ease-out, box-shadow .2s ease-out, opacity .22s var(--entrada), transform .22s var(--entrada); }
 .servico.escolhido { border-color: var(--cor); }
 .servico.chegando { opacity: 0; transform: translateY(8px); }
 .servico-area { grid-area: area; display: inline-flex; align-items: center; gap: 6px; font-size: .88rem; font-weight: 800; color: var(--cor); }
 .servico-area .icone { width: 18px; height: 18px; }
 .servico h3 { grid-area: titulo; font-size: 1.05rem; margin: 2px 0 4px; }
 .servico p { grid-area: texto; margin: 0; color: var(--tinta-suave); font-size: .95rem; }
+.servico .servico-preco { grid-area: preco; margin-top: 8px; color: var(--tinta); font-size: .95rem; }
+.servico-preco b { font-weight: 900; }
+.servico-preco span { color: var(--tinta-suave); font-size: .88rem; }
+.servicos-nota { margin: -12px 0 20px; max-width: 65ch; color: var(--tinta-suave); font-size: .9rem; }
+.ver-todos { justify-self: center; margin-top: 6px; }
+/* no celular, só os seis mais pedidos (e os já escolhidos) até tocar em "ver todos" (js/digital.js) */
+@media (min-width: 700px) { .ver-todos { display: none !important; } }
+@media (max-width: 699px) { .servicos.recolhida .servico:not([data-destaque]):not(.escolhido) { display: none; } }
 .adicionar { grid-area: botao; align-self: start; min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: 999px; border: 2px solid var(--cor); background: transparent; color: var(--cor); font: inherit; font-weight: 800; font-size: .9rem; cursor: pointer; white-space: nowrap; transition: background-color .2s ease-out, color .2s ease-out, transform .15s ease-out; }
 .adicionar:hover { background: var(--cor-clara); }
 .adicionar:active { transform: scale(.95); }
@@ -152,14 +155,23 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; }
 .pacote-pronto ul { margin: 0; padding-left: 20px; flex: 1; }
 .pacote-pronto li { margin: 2px 0; }
 .pacote-pronto .botao { align-self: flex-start; }
+.pacote-pronto .pacote-preco { color: var(--tinta); font-weight: 800; }
 .pacote-pronto-destaque { border-color: var(--cor); box-shadow: 0 10px 30px -18px var(--cor); }
 .pacote-pronto-site { background: transparent; border-style: dashed; }
 :root:not(.js) [data-escolher-pacote] { display: none; }
 
+/* Trabalhos: o que é de verdade; o cartão vago chama os primeiros clientes */
+.trabalhos { display: grid; gap: 14px; }
+.trabalho { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 20px; border-radius: var(--raio); background: var(--cartao); border: 2px solid var(--linha); }
+.trabalho h3 { margin: 0; font-size: 1.15rem; }
+.trabalho p { margin: 0 0 8px; color: var(--tinta-suave); flex: 1; }
+.trabalho-vago { background: transparent; border-style: dashed; }
+@media (min-width: 900px) { .trabalhos { grid-template-columns: repeat(3, 1fr); } }
+
 /* Como funciona: a linha do tempo de edição, cada etapa um trecho com o tempo em cima */
 .passos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: 3px solid var(--cor); }
 .passos li { position: relative; display: grid; gap: 2px; padding: 0 0 22px 22px; }
-.passos li::before { content: ""; position: absolute; left: -9px; top: 6px; width: 15px; height: 15px; border-radius: 4px; background: var(--fundo); border: 3px solid var(--cor); }
+.passos li::before { content: ""; position: absolute; left: -9px; top: 6px; width: 15px; height: 15px; border-radius: 4px; background: var(--gelo); border: 3px solid var(--cor); }
 .passo-tempo { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .85rem; font-weight: 700; color: var(--cor); }
 .passos b { font-size: 1.1rem; }
 .passos span:last-child { color: var(--tinta-suave); }
@@ -185,6 +197,8 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; }
 
 /* Identidade visual */
 .identidade { background: var(--gelo); }
+.pagina-identidade main { min-height: 70vh; }
+.identidade h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 900; }
 .identidade-grade { display: grid; gap: 28px; }
 .identidade-grade > * { min-width: 0; }
 .identidade h3 { font-size: 1.2rem; }
@@ -244,6 +258,7 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; }
 .campo input:focus, .campo textarea:focus { border-color: #7DD3FC; outline: none; }
 .campo [aria-invalid="true"] { border-color: #FCA5A5; }
 .campo-erro { margin: 0; min-height: 1.2em; color: #FCA5A5; font-size: .9rem; font-weight: 700; }
+.formulario-total { margin: 6px 0 0; color: #FDBA74; font-weight: 800; font-size: .95rem; }
 .formulario-pacote { margin: 0; padding: 10px 14px; border-radius: 12px; background: rgba(255, 255, 255, .06); color: #E2E8F0; }
 .formulario-botoes { display: grid; gap: 10px; }
 
@@ -281,10 +296,9 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
 @media (min-width: 700px) {
   .dentro { padding: 0 28px; }
   .abertura { padding: 64px 0 56px; }
-  .abertura-areas { grid-template-columns: repeat(3, 1fr); }
-  .areas { flex-wrap: wrap; overflow: visible; margin: 0; padding: 10px 0; position: sticky; top: 64px; z-index: 5; background: var(--fundo); }
+    .areas { flex-wrap: wrap; overflow: visible; margin: 0; padding: 10px 0; position: sticky; top: 64px; z-index: 5; background: var(--fundo); }
   .servicos { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .servico { grid-template-columns: 1fr; grid-template-areas: "area" "titulo" "texto" "botao"; grid-template-rows: auto auto 1fr auto; row-gap: 4px; padding: 18px; }
+  .servico { grid-template-columns: 1fr; grid-template-areas: "area" "titulo" "texto" "preco" "botao"; grid-template-rows: auto auto 1fr auto auto; row-gap: 4px; padding: 18px; }
   .adicionar { justify-self: start; margin-top: 10px; }
   .pacotes { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); overflow: visible; margin: 0; padding: 0; }
   .duvidas { grid-template-columns: repeat(2, 1fr); align-items: start; }
@@ -298,9 +312,7 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
 /* tablet deitado e notebook pequeno: a abertura em duas colunas */
 @media (min-width: 900px) {
   .abertura-dentro { grid-template-columns: 1.2fr 1fr; align-items: center; column-gap: 40px; }
-  .abertura-areas { grid-column: 1 / -1; grid-template-columns: repeat(6, 1fr); }
-  .abertura-areas a { flex-direction: column; justify-content: center; text-align: center; gap: 6px; font-size: .95rem; }
-}
+    }
 
 /* ===== Computador (1100 px ou mais): áreas e pacote parados numa coluna ao lado, 3 colunas de cartões ===== */
 @media (min-width: 1100px) {
@@ -314,6 +326,7 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
   .pacote { display: grid; gap: 10px; padding: 18px; border-radius: var(--raio); background: var(--cartao); border: 2px solid var(--linha); }
   .pacote-titulo { margin: 0; font-weight: 900; font-size: 1.1rem; }
   .pacote-vazio { margin: 0; color: var(--tinta-suave); font-size: .92rem; }
+  .pacote-total { margin: 0; font-weight: 800; color: var(--cor); font-size: .95rem; }
   .pacote-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-height: 168px; overflow-y: auto; }
   .pacote-lista li { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: .92rem; font-weight: 700; animation: abrir .2s ease-out; }
   .pacote-tirar { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 0; background: var(--cor-clara); color: var(--cor-forte); font: inherit; font-weight: 900; cursor: pointer; transition: transform .15s ease-out; }
@@ -376,6 +389,7 @@ body:has(.barra-pacote:not([hidden])) .rodape { padding-bottom: 90px; }
 .raiox-lista li { display: grid; gap: 2px; padding-left: 14px; border-left: 3px solid #EA580C; color: #CBD5E1; font-size: .95rem; animation: abrir .2s ease-out; }
 .raiox-lista b { color: #FFFFFF; }
 .raiox-site { margin: 0; color: #CBD5E1; }
+.raiox-total { margin: 0; color: #FDBA74; font-weight: 800; }
 .raiox-site a { color: #7DD3FC; }
 .raiox-resultado .botao { justify-self: start; }
 @media (min-width: 700px) {
