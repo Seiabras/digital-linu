@@ -184,6 +184,12 @@
               <label><input type="radio" name="rx-site" value="nao"><span>Não</span></label>
             </fieldset>
           </div>
+          <!-- só no celular (11/11/2026): uma pergunta por vez, de lado; responder já leva à próxima -->
+          <div class="perguntas-nav" data-perguntas-nav hidden>
+            <button type="button" class="perguntas-seta" data-perguntas-ir="-1" aria-label="Pergunta anterior">←</button>
+            <span data-perguntas-pos aria-live="polite">Pergunta 1 de 8</span>
+            <button type="button" class="perguntas-seta" data-perguntas-ir="1" aria-label="Próxima pergunta">→</button>
+          </div>
           <!-- O resultado como o painel de medição do editor: oito barras, uma por pergunta (laranja = falta algo) -->
           <div class="raiox-resultado" id="raiox-resultado" aria-live="polite">
             <p class="painel-rotulo" aria-hidden="true">Medição</p>

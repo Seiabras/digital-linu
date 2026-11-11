@@ -39,6 +39,7 @@ apontam um para o outro, mas cada um vive no seu repositório.
   Automação). Tocar no nome mostra só ela; tocar de novo ou em “Todas as trilhas” volta tudo. No celular e no tablet os
   clipes rolam de lado só dentro da trilha; no computador cabem todos. Serviço novo: um `<article class="clipe servico">`
   dentro da `trilha-faixa` da área, com `data-cat` igual ao `data-trilha`, e a contagem do nome da trilha.
+- **Raio-X no celular (11/11/2026):** abaixo de 700 px, as oito perguntas viram cartões de lado, um por vez, com “Pergunta 1 de 8” e as setas; responder leva à próxima sem resposta. O raio-X passou a caber em pouco mais de uma tela. Tablet e computador seguem com a grade.
 - **Raio-X do negócio:** oito perguntas de sim ou não (Google Maps, perfil, constância, vídeo, anúncio, marca,
   WhatsApp, site). Cada falta mostra o serviço e o motivo; “Levar para o meu pacote” junta tudo ao pacote, e quem não
   tem site recebe o link do Linu Sites. Respostas no navegador (`localStorage`, `digital-raiox`).

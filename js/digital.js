@@ -457,5 +457,51 @@
   });
   lerRaiox();
 
+  // No celular (11/11/2026): as perguntas em cartões de lado, uma por vez. Responder leva à próxima sem resposta;
+  // as setas e o deslizar também andam. No tablet e no computador fica a lista de antes.
+  var faixa = document.querySelector(".perguntas");
+  var nav = document.querySelector("[data-perguntas-nav]");
+  var pos = document.querySelector("[data-perguntas-pos]");
+  var setas = document.querySelectorAll("[data-perguntas-ir]");
+  var celular = window.matchMedia("(max-width: 699px)");
+  function inicio(i) { return perguntas[i].offsetLeft - perguntas[0].offsetLeft; }
+  function perguntaAtual() {
+    var melhor = 0;
+    for (var i = 1; i < perguntas.length; i++) if (Math.abs(inicio(i) - faixa.scrollLeft) < Math.abs(inicio(melhor) - faixa.scrollLeft)) melhor = i;
+    return melhor;
+  }
+  function irPara(i) {
+    i = Math.max(0, Math.min(perguntas.length - 1, i));
+    faixa.scrollTo({ left: inicio(i), behavior: menosMovimento.matches ? "auto" : "smooth" });
+  }
+  function marcar() {
+    var i = perguntaAtual();
+    pos.textContent = "Pergunta " + (i + 1) + " de " + perguntas.length;
+    setas[0].disabled = i === 0;
+    setas[1].disabled = i === perguntas.length - 1;
+  }
+  function modo() {
+    faixa.classList.toggle("em-cartoes", celular.matches);
+    nav.hidden = !celular.matches;
+    if (celular.matches) marcar();
+  }
+  setas.forEach(function (b) {
+    b.addEventListener("click", function () {
+      irPara(perguntaAtual() + Number(b.dataset.perguntasIr));
+    });
+  });
+  faixa.addEventListener("scroll", function () { if (celular.matches) marcar(); }, { passive: true });
+  perguntas.forEach(function (f, i) {
+    f.addEventListener("change", function () {
+      if (!celular.matches) return;
+      // a próxima sem resposta (depois desta; se não houver, a primeira sem resposta antes)
+      var ordem = Array.prototype.slice.call(perguntas, i + 1).concat(Array.prototype.slice.call(perguntas, 0, i));
+      var prox = ordem.filter(function (p) { return !p.querySelector("input:checked"); })[0];
+      if (prox) setTimeout(function () { irPara(Array.prototype.indexOf.call(perguntas, prox)); }, 280);
+    });
+  });
+  if (celular.addEventListener) celular.addEventListener("change", modo);
+  modo();
+
   mostrarPacote();
 })();

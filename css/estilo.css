@@ -238,6 +238,21 @@ h2 { font-size: clamp(2rem, 6vw, 2.9rem); font-weight: 800; font-stretch: 75%; l
 .pergunta input[value="nao"]:checked + span { background: var(--cor); border-color: var(--cor); color: var(--cor-sobre); }
 .pergunta input:focus-visible + span { outline: 3px solid var(--foco); outline-offset: 2px; position: relative; z-index: 1; }
 /* o medidor preso no alto (celular e tablet, 07/11/2026): as oito barras pequenas, a contagem e o atalho ao resultado */
+.perguntas-nav[hidden] { display: none; }
+/* no celular, as oito perguntas viram cartões de lado, um por vez (11/11/2026): o raio-X cabe numa tela */
+@media (max-width: 699px) {
+  .perguntas.em-cartoes { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    border-top: 0; scrollbar-width: none; padding: 2px; margin: -2px; }
+  .perguntas.em-cartoes::-webkit-scrollbar { display: none; }
+  .perguntas.em-cartoes .pergunta { flex: 0 0 100%; scroll-snap-align: start; align-content: space-between; min-height: 150px;
+    padding: 16px; border: 1px solid var(--linha); border-radius: 6px; background: var(--folha); }
+  .perguntas.em-cartoes .pergunta legend { font-size: 1.05rem; }
+  .perguntas-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; font: 600 .85rem var(--mono); color: var(--tinta-suave); }
+  .perguntas-seta { min-width: 48px; min-height: 44px; border: 1px solid var(--linha-forte); border-radius: 4px; background: var(--folha); color: var(--tinta); font: 700 1.1rem var(--mono); cursor: pointer; transition: opacity .2s ease-out, border-color .2s ease-out; }
+  .perguntas-seta:hover { border-color: var(--tinta-suave); }
+  .perguntas-seta:disabled { opacity: .35; cursor: default; }
+  .perguntas-seta:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+}
 .raiox-mini { position: sticky; top: 100px; z-index: 4; display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 12px 6px 6px; border-radius: 6px; background: var(--chrome); border: 1px solid var(--chrome-linha); color: var(--chrome-tinta); font: 600 .85rem/1.2 var(--mono); text-decoration: none; box-shadow: 0 10px 22px -14px rgba(0, 0, 0, .6); }
 .raiox-mini[hidden] { display: none; }
 .medidor-mini { width: 112px; height: 34px; flex: none; gap: 3px; padding: 3px; }
