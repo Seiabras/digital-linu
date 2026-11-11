@@ -94,3 +94,5 @@ rolagem lateral nas três larguras, claro e escuro. As fontes passaram de 39 KB 
 com o eixo de largura + JetBrains Mono).
 
 - **Contador de visitas do Farol (11/11/2026):** `js/farol-visitas.js` é cópia do `linu-farol/v.js` (mudou lá, muda aqui). Conta as visitas sem cookie; o CSP libera `https://farol.linupedia.com.br` no `connect-src` (na página e no Caddy). Os números ficam no painel da casa: https://farol.linupedia.com.br/p/casa-digital/.
+
+- **Contato (11/11/2026):** WhatsApp (24) 98101-3398; o “Mandar por e-mail” virou “Enviar pelo formulário”, que manda o pedido a `/api/pedido` com o e-mail da pessoa (chega no contato@ e no `/admin` da Família Linu; servidor em `linuarquivos/servidor/linu-pedidos`).
