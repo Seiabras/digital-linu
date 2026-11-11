@@ -99,7 +99,8 @@ node ferramentas/gerar-idiomas.mjs --conferir  # só confere (é o que o Actions
 - **Preços por região:** real no Brasil, euro na Europa e dólar no resto (`moedas` do `precos.json`). Os valores em euro
   e dólar de 11/11/2026 são uma sugestão a partir de faixas de mercado e estão marcados `provisorio` (publica e avisa);
   com `pendente`, o Actions não publica.
-- **O que muda por região, e não só de língua:** o pagamento (Pix no Brasil; fatura em euro por SEPA na Europa;
+- **O que muda por região, e não só de língua:** o vídeo institucional, que fora do Brasil leva “edição do seu material”
+  depois do preço (`sd_institucional`, vazio no pt-BR), o pagamento (Pix no Brasil; fatura em euro por SEPA na Europa;
   transferência em dólar pela Wise no resto), a gravação no local (só no Brasil) e a dúvida “Atendem fora de Brasília?”,
   que fora do Brasil vira “Atendem fora do Brasil?”. Estão nas chaves `faq_pagamento_r`, `faq_gravo_r`, `faq_fora_p` e
   `faq_fora_r` de cada idioma.

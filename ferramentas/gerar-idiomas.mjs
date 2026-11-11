@@ -120,7 +120,9 @@ for (const i of idiomas) {
     const s = precos.servicos[id];
     if (!s) { erros.push(`${i.codigo}: {{preco.${id}}} não existe no precos.json`); return ''; }
     const detalhe = i.textos['sd_' + chave(id)];
-    if (Boolean(s.detalhe) !== Boolean(detalhe)) erros.push(`${i.codigo}: sd_${chave(id)} ${detalhe ? 'sobra' : 'falta'} (o precos.json ${s.detalhe ? 'tem' : 'não tem'} detalhe)`);
+    // o detalhe do precos.json tem de ter texto em todo idioma; um idioma pode ter um detalhe a mais, só da região
+    // (fora do Brasil, o vídeo institucional é a edição do material do cliente: a equipe só grava no Brasil)
+    if (s.detalhe && !detalhe) erros.push(`${i.codigo}: falta sd_${chave(id)} (o precos.json tem detalhe)`);
     return aPartir(s.tipo === 'mensal' ? 0 : valor[id], s.tipo === 'mensal' ? valor[id] : 0)
       + (detalhe ? ' <span>' + eComercial(i.textos.entre_parenteses.replace('{v}', () => detalhe)) + '</span>' : '');
   };
