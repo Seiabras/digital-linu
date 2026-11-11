@@ -8,6 +8,15 @@
   var menosMovimento = window.matchMedia("(prefers-reduced-motion: reduce)");
   function guardar(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function ler(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  // Os textos no idioma da página (o bloco textos-js, escrito pelo ferramentas/gerar-idiomas.mjs) e o dinheiro na moeda
+  // dela (data-moeda no <html>). {n}, {v}… são as partes que mudam.
+  var T = {};
+  try { T = JSON.parse(document.getElementById("textos-js").textContent); } catch (e) {}
+  function tx(k, dados) {
+    var s = T[k] === undefined ? k : T[k];
+    Object.keys(dados || {}).forEach(function (d) { s = s.split("{" + d + "}").join(String(dados[d])); });
+    return s;
+  }
 
   /* 1. Tema: sem escolha, segue o sistema; o botão alterna e guarda */
   var botaoTema = document.querySelector("[data-tema]");
@@ -15,8 +24,8 @@
   function escuroAgora() { return raiz.dataset.theme ? raiz.dataset.theme === "dark" : sistemaEscuro.matches; }
   function rotularTema() {
     var escuro = escuroAgora();
-    botaoTema.setAttribute("aria-label", escuro ? "Mudar para o modo claro" : "Mudar para o modo escuro");
-    botaoTema.title = escuro ? "Modo claro" : "Modo escuro";
+    botaoTema.setAttribute("aria-label", tx(escuro ? "tema_claro_rotulo" : "tema_escuro_rotulo"));
+    botaoTema.title = tx(escuro ? "tema_claro" : "tema_escuro");
   }
   botaoTema.addEventListener("click", function () {
     raiz.dataset.theme = escuroAgora() ? "light" : "dark";
@@ -50,7 +59,7 @@
     segundos += 3;
     var codigo = "00:00:" + String(segundos % 60).padStart(2, "0") + ":" + String((tomada * 7) % 24).padStart(2, "0");
     tempo.textContent = codigo;
-    legenda.textContent = "Tomada " + tomada + ": clique! O Linu fotografou o modo " + (escuro ? "escuro." : "claro.");
+    legenda.textContent = tx(escuro ? "tomada_escuro" : "tomada_claro", { n: tomada });
     // a agulha da barra de reprodução avança um passo a cada tomada (entre a entrada e a saída)
     trilhoAgulha.style.setProperty("--passo", String(10 + ((tomada - 1) * 12) % 90));
     if (menosMovimento.matches) return;
@@ -76,7 +85,7 @@
   abrir.addEventListener("click", function () {
     var aberto = abrir.getAttribute("aria-expanded") === "true";
     abrir.setAttribute("aria-expanded", String(!aberto));
-    abrir.setAttribute("aria-label", aberto ? "Abrir o menu" : "Fechar o menu");
+    abrir.setAttribute("aria-label", tx(aberto ? "menu_abrir" : "menu_fechar"));
     links.classList.toggle("aberto", !aberto);
   });
   links.addEventListener("click", function (e) { if (e.target.closest("a")) fecharMenu(); });
@@ -132,18 +141,23 @@
     precos[s.dataset.id] = { valor: Number(s.dataset.preco) || 0, mensal: s.dataset.tipo === "mensal" };
   });
   // a estimativa "a partir de": o que é entrega única e o que é por mês, somados à parte
-  function reais(v) { return "R$\u00a0" + v.toLocaleString("pt-BR"); }
-  function estimativa(ids) {
+  var moeda = raiz.dataset.moeda || "BRL";
+  var formato = null;
+  try { formato = new Intl.NumberFormat(raiz.lang, { style: "currency", currency: moeda, maximumFractionDigits: 0 }); } catch (e) {}
+  function dinheiro(v) { return formato ? formato.format(v) : moeda + "\u00a0" + v; }
+  // a soma sem o “a partir de” (a barra de baixo usa assim) e com ele
+  function soma(ids) {
     var unico = 0, mensal = 0;
     ids.forEach(function (id) { var p = precos[id]; if (!p) return; if (p.mensal) mensal += p.valor; else unico += p.valor; });
     var partes = [];
-    if (unico) partes.push(reais(unico));
-    if (mensal) partes.push(reais(mensal) + " por mês");
-    return partes.length ? "a partir de " + partes.join(" + ") : "";
+    if (unico) partes.push(dinheiro(unico));
+    if (mensal) partes.push(tx("por_mes", { v: dinheiro(mensal) }));
+    return partes.join(" + ");
   }
-  document.querySelectorAll("[data-pacote-preco]").forEach(function (p) {
-    p.textContent = estimativa(p.dataset.pacotePreco.split(" "));
-  });
+  function estimativa(ids) {
+    var s = soma(ids);
+    return s ? tx("a_partir", { v: s }) : "";
+  }
   var escolhidos = [];
   try { escolhidos = (JSON.parse(ler("digital-pacote")) || []).filter(function (id) { return nomes[id]; }); } catch (e) {}
 
@@ -156,14 +170,15 @@
   var total = document.querySelector("[data-pacote-total]");
   var totalFormulario = document.querySelector("[data-formulario-total]");
 
-  function contagem(n) { return n === 1 ? "1 serviço" : n + " serviços"; }
+  function nomesDoPacote() { return escolhidos.map(function (id) { return nomes[id]; }).join(tx("juncao")); }
+  function contagem(n) { return tx(n === 1 ? "servicos_1" : "servicos_n", { n: n }); }
   function mostrarPacote() {
     guardar("digital-pacote", JSON.stringify(escolhidos));
     servicos.forEach(function (s) {
       var dentro = escolhidos.indexOf(s.dataset.id) >= 0;
       var b = s.querySelector("[data-adicionar]");
       b.setAttribute("aria-pressed", String(dentro));
-      b.querySelector("[data-rotulo]").textContent = dentro ? "No pacote" : "Adicionar";
+      b.querySelector("[data-rotulo]").textContent = tx(dentro ? "no_pacote" : "adicionar");
       b.querySelector("use").setAttribute("href", dentro ? "#i-ok" : "#i-mais");
       s.classList.toggle("escolhido", dentro);
     });
@@ -176,7 +191,7 @@
       tirar.type = "button";
       tirar.className = "pacote-tirar";
       tirar.dataset.tirar = id;
-      tirar.setAttribute("aria-label", "Tirar " + nomes[id] + " do pacote");
+      tirar.setAttribute("aria-label", tx("tirar", { nome: nomes[id] }));
       tirar.textContent = "×";
       li.appendChild(document.createTextNode(nomes[id]));
       li.appendChild(tirar);
@@ -189,11 +204,11 @@
     barra.classList.toggle("vazia", n === 0);   // vazia, só no celular (no tablet, o topo já tem o pedir)
     var est = estimativa(escolhidos);
     total.hidden = totalFormulario.hidden = !est;
-    total.textContent = est ? "Estimativa: " + est : "";
-    totalFormulario.textContent = est ? "Estimativa: " + est + ". O preço certo vem na proposta." : "";
-    barraTexto.textContent = n ? contagem(n) + (est ? ": " + est.replace("a partir de ", "") : " no pacote") : "Pacote vazio";
-    noFormulario.textContent = n ? escolhidos.map(function (id) { return nomes[id]; }).join(", ")
-      : "Nenhum serviço escolhido: tudo bem, conte na mensagem.";
+    total.textContent = est ? tx("estimativa", { v: est }) : "";
+    totalFormulario.textContent = est ? tx("estimativa_form", { v: est }) : "";
+    barraTexto.textContent = !n ? tx("barra_vazia")
+      : est ? tx("barra_total", { servicos: contagem(n), v: soma(escolhidos) }) : tx("barra_sem", { servicos: contagem(n) });
+    noFormulario.textContent = n ? nomesDoPacote() : tx("pacote_nenhum");
     escreverMensagem();
   }
   function alternar(id) {
@@ -238,7 +253,7 @@
   var form = document.querySelector("[data-formulario]");
   function campo(k) { return document.getElementById(k); }
   var campos = { nome: campo("nome"), negocio: campo("negocio"), email: campo("email") };
-  var avisos = { nome: "Escreva o seu nome.", negocio: "Conte o tipo de negócio e a cidade.", email: "Escreva um e-mail válido, como nome@exemplo.com." };
+  var avisos = { nome: tx("aviso_nome"), negocio: tx("aviso_negocio"), email: tx("aviso_email") };
   var EMAIL = /^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i;
   // o que foi digitado não se perde ao recarregar
   ["nome", "email", "negocio", "mensagem"].forEach(function (k) {
@@ -260,12 +275,12 @@
     campos[k].addEventListener("input", function () { conferir(k, false); });
   });
   function texto() {
-    var partes = ["Olá, Digital Linu! Quero um orçamento."];
-    if (campo("nome").value.trim()) partes.push("Nome: " + campo("nome").value.trim());
-    if (campo("negocio").value.trim()) partes.push("Negócio: " + campo("negocio").value.trim());
+    var partes = [tx("msg_ola")];
+    if (campo("nome").value.trim()) partes.push(tx("msg_nome", { v: campo("nome").value.trim() }));
+    if (campo("negocio").value.trim()) partes.push(tx("msg_negocio", { v: campo("negocio").value.trim() }));
     if (escolhidos.length) {
-      partes.push("Pacote: " + escolhidos.map(function (id) { return nomes[id]; }).join(", "));
-      partes.push("Estimativa pela página: " + estimativa(escolhidos));
+      partes.push(tx("msg_pacote", { v: nomesDoPacote() }));
+      partes.push(tx("msg_estimativa", { v: estimativa(escolhidos) }));
     }
     if (campo("mensagem").value.trim()) partes.push(campo("mensagem").value.trim());
     return partes.join("\n");
@@ -282,7 +297,7 @@
     var robo = form.querySelector('[name="site_extra"]');
     return {
       nome: campo("nome").value.trim(), negocio: campo("negocio").value.trim(), email: campo("email").value.trim(),
-      pacote: escolhidos.map(function (id) { return nomes[id]; }).join(", "),
+      pacote: nomesDoPacote(),
       estimativa: escolhidos.length ? estimativa(escolhidos) : "",
       mensagem: campo("mensagem").value.trim(), canal: canal, site_extra: robo ? robo.value : ""
     };
@@ -292,7 +307,7 @@
       var robo = form.querySelector('[name="site_extra"]');
       var dados = {
         nome: campo("nome").value.trim(), negocio: campo("negocio").value.trim(),
-        pacote: escolhidos.map(function (id) { return nomes[id]; }).join(", "),
+        pacote: nomesDoPacote(),
         estimativa: escolhidos.length ? estimativa(escolhidos) : "",
         mensagem: campo("mensagem").value.trim(), canal: canal, site_extra: robo ? robo.value : ""
       };
@@ -316,22 +331,22 @@
     var ok = conferir("nome", true) & conferir("email", true) & conferir("negocio", true);
     if (!ok) { form.querySelector('[aria-invalid="true"]').focus(); return; }
     enviar.disabled = true;
-    enviar.textContent = "Enviando…";
+    enviar.textContent = tx("enviando");
     estado.className = "formulario-status";
     estado.textContent = "";
     fetch("/api/pedido", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(dadosDo("formulario")) })
       .then(function (r) {
         if (!r.ok) throw new Error(String(r.status));
-        enviar.textContent = "Enviado";
+        enviar.textContent = tx("enviado");
         estado.className = "formulario-status ok";
-        estado.textContent = "Recebido! A resposta chega no seu e-mail (" + campo("email").value.trim() + ") em até 1 dia útil.";
-        setTimeout(function () { enviar.disabled = false; enviar.textContent = "Enviar pelo formulário"; }, 4000);
+        estado.textContent = tx("recebido", { email: campo("email").value.trim() });
+        setTimeout(function () { enviar.disabled = false; enviar.textContent = tx("enviar_formulario"); }, 4000);
       })
       .catch(function () {
         enviar.disabled = false;
-        enviar.textContent = "Enviar pelo formulário";
+        enviar.textContent = tx("enviar_formulario");
         estado.className = "formulario-status erro";
-        estado.textContent = "Não deu para enviar agora. Tente de novo em instantes ou mande pelo WhatsApp.";
+        estado.textContent = tx("erro_envio");
       });
   });
 
@@ -405,14 +420,14 @@
 
   /* 9. Raio-X: cada "não" (ou "sim", no site) aponta um serviço, com o motivo; o resultado vai para o pacote */
   var RAIOX = {
-    maps: { nao: ["meu-negocio", "Quem procura no Google Maps ainda não acha você: é o primeiro passo, e o mais barato."] },
-    perfil: { nao: ["perfil", "O perfil é a vitrine: quem chega de um anúncio ou de um Reels decide ali se segue."] },
-    posta: { nao: ["gestao", "Sem constância, o Instagram mostra menos o que você posta. A gestão mensal resolve o calendário."] },
-    video: { nao: ["reels", "Vídeo curto é o que mais leva o perfil para quem ainda não segue você."] },
-    anuncio: { nao: ["meta", "Anúncio com orçamento pequeno e bem mirado traz gente da sua região já no primeiro mês."] },
-    marca: { nao: ["identidade", "Logo e cores definidas fazem tudo o que você publica parecer da mesma marca."] },
-    whats: { nao: ["whatsapp", "Resposta rápida no WhatsApp é cliente que não vai para o concorrente."] },
-    site: { sim: ["seo", "Com site, o SEO básico ajuda o Google a mostrar você para quem procura."] }
+    maps: { nao: ["meu-negocio", tx("rx_maps")] },
+    perfil: { nao: ["perfil", tx("rx_perfil")] },
+    posta: { nao: ["gestao", tx("rx_posta")] },
+    video: { nao: ["reels", tx("rx_video")] },
+    anuncio: { nao: ["meta", tx("rx_anuncio")] },
+    marca: { nao: ["identidade", tx("rx_marca")] },
+    whats: { nao: ["whatsapp", tx("rx_whats")] },
+    site: { sim: ["seo", tx("rx_site_sim")] }
   };
   var perguntas = document.querySelectorAll("[data-pergunta]");
   var rxLista = document.querySelector("[data-raiox-lista]");
@@ -452,20 +467,20 @@
       rxLista.appendChild(li);
     });
     guardar("digital-raiox", JSON.stringify(respostas));
-    rxContagem.textContent = n + " de " + perguntas.length + " respondidas";
-    rxMiniTexto.textContent = n + " de " + perguntas.length;
+    rxContagem.textContent = tx("rx_contagem", { n: n, t: perguntas.length });
+    rxMiniTexto.textContent = tx("rx_mini", { n: n, t: perguntas.length });
     if (n === perguntas.length && rxIds.length === 0) {
       rxIds = ["google-ads"];
       var li = document.createElement("li");
       var b = document.createElement("b");
       b.textContent = nomes["google-ads"];
       li.appendChild(b);
-      li.appendChild(document.createTextNode("Está tudo em dia. O próximo passo costuma ser aparecer no alto da busca do Google."));
+      li.appendChild(document.createTextNode(tx("rx_em_dia")));
       rxLista.appendChild(li);
     }
     rxVazio.hidden = rxIds.length > 0;
     rxTotal.hidden = rxIds.length === 0;
-    rxTotal.textContent = rxIds.length ? "Estimativa do recomendado: " + estimativa(rxIds) : "";
+    rxTotal.textContent = rxIds.length ? tx("rx_total", { v: estimativa(rxIds) }) : "";
     rxSite.hidden = respostas.site !== "nao";
     rxUsar.hidden = rxIds.length === 0;
   }
@@ -483,16 +498,16 @@
     filtrar("todas");
     var rotulo = rxUsar.querySelector("[data-rotulo]");
     var icone = rxUsar.querySelector("use");
-    rotulo.textContent = "No pacote";
+    rotulo.textContent = tx("no_pacote");
     icone.setAttribute("href", "#i-ok");
-    setTimeout(function () { rotulo.textContent = "Levar para o meu pacote"; icone.setAttribute("href", "#i-mais"); }, 1600);
+    setTimeout(function () { rotulo.textContent = tx("levar"); icone.setAttribute("href", "#i-mais"); }, 1600);
     document.getElementById("servicos").scrollIntoView({ behavior: menosMovimento.matches ? "auto" : "smooth" });
   });
   lerRaiox();
 
   // No celular (11/11/2026): as perguntas em cartões de lado, uma por vez. Responder leva à próxima sem resposta;
   // as setas e o deslizar também andam. No tablet e no computador fica a lista de antes.
-  var faixa = document.querySelector(".perguntas");
+  var faixaPerguntas = document.querySelector(".perguntas");
   var nav = document.querySelector("[data-perguntas-nav]");
   var pos = document.querySelector("[data-perguntas-pos]");
   var setas = document.querySelectorAll("[data-perguntas-ir]");
@@ -500,21 +515,21 @@
   function inicio(i) { return perguntas[i].offsetLeft - perguntas[0].offsetLeft; }
   function perguntaAtual() {
     var melhor = 0;
-    for (var i = 1; i < perguntas.length; i++) if (Math.abs(inicio(i) - faixa.scrollLeft) < Math.abs(inicio(melhor) - faixa.scrollLeft)) melhor = i;
+    for (var i = 1; i < perguntas.length; i++) if (Math.abs(inicio(i) - faixaPerguntas.scrollLeft) < Math.abs(inicio(melhor) - faixaPerguntas.scrollLeft)) melhor = i;
     return melhor;
   }
   function irPara(i) {
     i = Math.max(0, Math.min(perguntas.length - 1, i));
-    faixa.scrollTo({ left: inicio(i), behavior: menosMovimento.matches ? "auto" : "smooth" });
+    faixaPerguntas.scrollTo({ left: inicio(i), behavior: menosMovimento.matches ? "auto" : "smooth" });
   }
   function marcar() {
     var i = perguntaAtual();
-    pos.textContent = "Pergunta " + (i + 1) + " de " + perguntas.length;
+    pos.textContent = tx("rx_pos", { n: i + 1, t: perguntas.length });
     setas[0].disabled = i === 0;
     setas[1].disabled = i === perguntas.length - 1;
   }
   function modo() {
-    faixa.classList.toggle("em-cartoes", celular.matches);
+    faixaPerguntas.classList.toggle("em-cartoes", celular.matches);
     nav.hidden = !celular.matches;
     if (celular.matches) marcar();
   }
@@ -523,7 +538,7 @@
       irPara(perguntaAtual() + Number(b.dataset.perguntasIr));
     });
   });
-  faixa.addEventListener("scroll", function () { if (celular.matches) marcar(); }, { passive: true });
+  faixaPerguntas.addEventListener("scroll", function () { if (celular.matches) marcar(); }, { passive: true });
   perguntas.forEach(function (f, i) {
     f.addEventListener("change", function () {
       if (!celular.matches) return;

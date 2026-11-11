@@ -36,11 +36,12 @@ jobs:
       - name: Conferir a página
         run: |
           test -f index.html
-          npx --yes html-validate@10.1.2 *.html
+          npx --yes html-validate@10.1.2 *.html */index.html
           python3 deploy/conferir-pagina.py
+          # as páginas de cada idioma batem com o modelo, os textos e o precos.json (e nenhuma moeda pendente)
+          node ferramentas/gerar-idiomas.mjs --conferir
           # a versão de cada arquivo pelo conteúdo (?v=hash): o navegador guarda /img, /css e /js por 7 dias
-          python3 ferramentas/versao-arquivos.py .
-          python3 ferramentas/precos-servicos.py --conferir
+          python3 ferramentas/versao-arquivos.py . *.html */index.html
       # A conferência visual (07/11/2026): 390, 820 e 1280 px, claro e escuro; reprova com rolagem lateral, erro no
       # console, arquivo faltando ou falha séria de acessibilidade (axe). As capturas ficam como artefato da execução.
       - name: Conferência visual
@@ -49,7 +50,7 @@ jobs:
           # o --with-deps passa pelo apt do Ubuntu; quando o espelho da máquina do GitHub não responde (11/11/2026, o
           # linu-sites reprovou três vezes assim), a imagem já traz as bibliotecas do navegador: instala só o Chromium
           npx playwright install --with-deps chromium || npx playwright install chromium
-          node ferramentas/conferir-visual.mjs --raiz . --paginas / --saida capturas
+          node ferramentas/conferir-visual.mjs --raiz . --paginas /,/de/,/ja/ --saida capturas
       - name: Guardar as capturas
         if: always()
         uses: actions/upload-artifact@v4
@@ -73,7 +74,7 @@ jobs:
           fi
           chmod 600 ~/.ssh/known_hosts
           # Só o que o site usa: as páginas, css/, js/, img/, fontes/, robots.txt e sitemap.xml (os .md e deploy/ ficam de fora)
-          tar czf - *.html robots.txt sitemap.xml css js img fontes \
+          tar czf - *.html $(ls -d */index.html | xargs -n1 dirname) robots.txt sitemap.xml css js img fontes \
             | ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "digitallinu@$VM_HOST"
       - name: Conferir o site
         if: steps.check.outputs.tem == 'sim'

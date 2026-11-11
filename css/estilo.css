@@ -5,6 +5,14 @@
    seção 3): celular até 699 px, tablet de 700 a 1099 px, computador a partir de 1100 px. */
 @font-face { font-family: "Archivo"; font-style: normal; font-weight: 400 800; font-stretch: 62% 100%; font-display: swap; src: url(../fontes/archivo-latin.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500 700; font-display: swap; src: url(../fontes/jetbrains-mono-latin.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* Noto Sans CJK (SIL Open Font License, fontes/OFL-Noto.txt), também do próprio site: só nas páginas em japonês, coreano
+   e chinês, cortada com os caracteres que cada uma usa (ferramentas/gerar-fontes.mjs). */
+@font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 100 500; font-display: swap; src: url(../fontes/noto-ja-400.woff2?v=1) format("woff2"); }
+@font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: 600 1000; font-display: swap; src: url(../fontes/noto-ja-700.woff2?v=1) format("woff2"); }
+@font-face { font-family: "Noto Sans KR"; font-style: normal; font-weight: 100 500; font-display: swap; src: url(../fontes/noto-ko-400.woff2?v=1) format("woff2"); }
+@font-face { font-family: "Noto Sans KR"; font-style: normal; font-weight: 600 1000; font-display: swap; src: url(../fontes/noto-ko-700.woff2?v=1) format("woff2"); }
+@font-face { font-family: "Noto Sans TC"; font-style: normal; font-weight: 100 500; font-display: swap; src: url(../fontes/noto-zh-hant-400.woff2?v=1) format("woff2"); }
+@font-face { font-family: "Noto Sans TC"; font-style: normal; font-weight: 600 1000; font-display: swap; src: url(../fontes/noto-zh-hant-700.woff2?v=1) format("woff2"); }
 
 :root {
   /* o papel do roteiro (modo claro) */
@@ -76,6 +84,16 @@ h1, h2, h3 { line-height: 1.15; margin: 0 0 .5em; }
 h2 { font-size: clamp(2rem, 6vw, 2.9rem); font-weight: 800; font-stretch: 75%; line-height: 1.02; margin: 0; }
 [hidden] { display: none !important; }
 .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Japonês, coreano e chinês: a Archivo não tem esses caracteres, então vem a Noto do próprio site e, se faltar um, a
+   fonte do aparelho. Sem espaço entre letras e com mais entrelinha, como pede cada escrita. */
+:root:lang(ja) body { font-family: "Archivo", "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif; line-height: 1.8; line-break: strict; overflow-wrap: break-word; }
+:root:lang(ko) body { font-family: "Archivo", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; line-height: 1.7; line-break: strict; word-break: keep-all; overflow-wrap: anywhere; }
+:root:lang(zh-Hant) body { font-family: "Archivo", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; line-height: 1.8; line-break: strict; overflow-wrap: break-word; }
+:root:lang(ja) { --mono: "JetBrains Mono", "Noto Sans JP", ui-monospace, Menlo, Consolas, monospace; }
+:root:lang(ko) { --mono: "JetBrains Mono", "Noto Sans KR", ui-monospace, Menlo, Consolas, monospace; }
+:root:lang(zh-Hant) { --mono: "JetBrains Mono", "Noto Sans TC", ui-monospace, Menlo, Consolas, monospace; }
+:root:lang(ja) :is(h1, h2, h3), :root:lang(ko) :is(h1, h2, h3), :root:lang(zh-Hant) :is(h1, h2, h3) { letter-spacing: 0; line-height: 1.35; font-stretch: 100%; }
+:root:lang(ja) :is(h1, h2, h3) { font-feature-settings: "palt"; word-break: auto-phrase; }
 .pixel { image-rendering: pixelated; }
 
 /* A faixa de ida e volta com o Linu Sites (a mesma da família) */
@@ -128,6 +146,34 @@ h2 { font-size: clamp(2rem, 6vw, 2.9rem); font-weight: 800; font-stretch: 75%; l
 .luz:hover, .menu-abrir:hover { background: var(--chrome-3); }
 .luz:active, .menu-abrir:active { transform: translateY(1px); }
 .luz svg, .menu-abrir svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* O seletor de região e idioma (o globo com o código): a lista abre embaixo; o aviso, uma vez, sugere a página da
+   região ou da língua de quem chega (ferramentas/gerar-idiomas.mjs e js/idiomas.js) */
+.idiomas { position: relative; }
+.idiomas summary { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 10px; border-radius: 4px; border: 1px solid #4A4038; background: var(--chrome-2); color: var(--chrome-tinta); font-family: var(--mono); font-weight: 600; font-size: .8rem; cursor: pointer; list-style: none; transition: background .15s ease-out; }
+.idiomas summary::-webkit-details-marker { display: none; }
+.idiomas summary:hover, .idiomas[open] summary { background: var(--chrome-3); }
+.idiomas summary svg { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.idiomas-lista { position: absolute; right: 0; top: calc(100% + 10px); z-index: 40; min-width: 250px; max-height: min(70vh, 560px); overflow: auto; margin: 0; padding: 6px; background: var(--chrome); border: 1px solid var(--chrome-linha); border-radius: 6px; box-shadow: 0 12px 32px rgba(0, 0, 0, .45); animation: idiomas-abrir .18s var(--entrada); }
+@keyframes idiomas-abrir { from { opacity: 0; transform: translateY(-6px); } }
+.idiomas-lista ul { margin: 0 0 4px; padding: 0; list-style: none; }
+.idiomas-regiao { margin: 8px 12px 2px; color: var(--chrome-suave); font-family: var(--mono); font-size: .74rem; font-weight: 600; }
+.idiomas-lista a { display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 4px; color: var(--chrome-tinta); text-decoration: none; }
+.idiomas-lista a:hover, .idiomas-lista a:focus-visible { background: var(--chrome-3); }
+.idiomas-lista a[aria-current] { color: var(--fogo-claro); font-weight: 700; }
+.idioma-aviso { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 2px 16px; border-top: 1px solid var(--chrome-linha); background: var(--chrome-2); font-size: .92rem; }
+.idioma-aviso a { display: inline-flex; align-items: center; min-height: 44px; color: var(--fogo-claro); font-weight: 700; }
+.idioma-aviso button { width: 44px; height: 44px; border: 0; border-radius: 4px; background: transparent; color: var(--chrome-tinta); font-size: 1.3rem; cursor: pointer; }
+.idioma-aviso button:hover { background: var(--chrome-3); }
+/* no celular e no tablet, só o globo (44 px): o menu de quatro itens e o pedir não deixam espaço para o código */
+@media (max-width: 1099px) {
+  .idiomas summary { justify-content: center; width: 44px; padding: 0; }
+  .idiomas summary .idiomas-codigo { display: none; }
+}
+@media (min-width: 700px) and (max-width: 1099px) { .menu { gap: 8px; } }
+@media (max-width: 699px) {
+  .idiomas-lista { width: min(300px, calc(100vw - 24px)); min-width: 0; max-height: min(66vh, 520px); right: -56px; }
+}
+@media (prefers-reduced-motion: reduce) { .idiomas-lista { animation: none; } }
 .icone-lua { display: none; }
 :root[data-theme="dark"] .icone-sol { display: none; }
 :root[data-theme="dark"] .icone-lua { display: inline; }

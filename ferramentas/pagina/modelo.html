@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" data-moeda="{{moeda}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{titulo}}</title>
+  <meta name="description" content="{{descricao}}">
+  <meta name="theme-color" content="#1C1815">
+  <link rel="icon" href="{{raiz}}img/linu-logo.png" type="image/png" sizes="128x128">
+  <link rel="icon" href="{{raiz}}img/icone-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{raiz}}img/icone-180.png">
+  <meta property="og:title" content="Digital Linu">
+  <meta property="og:description" content="{{og_descricao}}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:locale" content="{{og_locale}}">
+{{og_alternativas}}
+  <meta property="og:image" content="https://digital.linupedia.com.br/img/compartilhar.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{og_imagem_alt}}">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- O que o Google lê sobre o Digital Linu (schema.org); os serviços são os 17 clipes da linha do tempo -->
+  <script type="application/ld+json">{{dados_estruturados}}</script>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' https://farol.linupedia.com.br; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <link rel="canonical" href="{{url}}">
+{{alternativas}}
+  <link rel="preload" href="{{raiz}}fontes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="{{raiz}}js/tema-inicio.js"></script>
+  <link rel="stylesheet" href="{{raiz}}css/estilo.css">
+  <link rel="stylesheet" href="{{raiz}}css/movimento.css">
+  <script type="application/json" id="textos-js">{{textos_js}}</script>
+  <script src="{{raiz}}js/digital.js" defer></script>
+  <script src="{{raiz}}js/idiomas.js" defer></script>
+  <script src="{{raiz}}js/linu-vivo.js" defer></script>
+  <script src="{{raiz}}js/movimento.js" defer></script>
+  <script src="{{raiz}}js/farol-visitas.js" defer></script>
+</head>
+<body>
+  <!-- Os ícones do Digital Linu, desenhados para ele (traço 2, pontas redondas), no lugar de emoji: as seis trilhas e os
+       controles do editor (reproduzir, cortar, pôr e tirar da sequência) -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-video" viewBox="0 0 24 24"><path d="M3 10h18v9H3z"/><path d="M3 10l2-5h14l2 5M8.5 5 7 10M13.5 5 12 10M18.5 5 17 10"/></symbol>
+    <symbol id="i-redes" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+    <symbol id="i-anuncios" viewBox="0 0 24 24"><path d="M3 20h18M5 16l5-5 3 3 6-7"/><path d="M15 7h4v4"/></symbol>
+    <symbol id="i-encontrado" viewBox="0 0 24 24"><path d="M12 21s-6-6.2-6-11a6 6 0 0 1 12 0c0 4.8-6 11-6 11Z"/><circle cx="12" cy="10" r="2"/></symbol>
+    <symbol id="i-marca" viewBox="0 0 24 24"><path d="M14.5 4.5l5 5L10 19H5v-5Z"/><path d="M12.5 6.5l5 5"/></symbol>
+    <symbol id="i-automacao" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5Z"/></symbol>
+    <symbol id="i-corte" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.6 7.6 20 18M8.6 16.4 20 6"/></symbol>
+    <symbol id="i-mais" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-ok" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-enviar" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-proximo" viewBox="0 0 24 24"><path d="M5 5v14l10-7Z"/><path d="M19 5v14"/></symbol>
+  </svg>
+  <!-- A faixa de ida e volta com o Linu Sites (6/11/2026): a mesma ideia lá e aqui -->
+  <aside class="faixa-irma" aria-label="{{faixa_rotulo}}">
+    <span>{{faixa_texto}}</span>
+    <a href="https://familia.linupedia.com.br/">{{faixa_link}} <span aria-hidden="true">→</span></a>
+  </aside>
+
+  <header class="topo">
+    <div class="dentro topo-dentro">
+      <a class="marca" href="./" aria-label="{{marca_rotulo}}">
+        <img src="{{raiz}}img/linu-logo.png" alt="" width="36" height="36">
+        <span><b>Digital</b> Linu</span>
+      </a>
+      <nav class="menu" aria-label="{{menu_rotulo}}">
+        <div class="menu-links" id="menu-links">
+          <a href="#servicos">{{menu_servicos}}</a>
+          <a href="#pacotes">{{menu_pacotes}}</a>
+          <a href="#como">{{menu_como}}</a>
+          <a href="#duvidas">{{menu_duvidas}}</a>
+          <a class="botao menu-links-orcamento" href="#contato">{{pedir}}</a>
+        </div>
+        <button class="luz" type="button" data-tema aria-label="{{tema_escuro_rotulo}}" title="{{tema_escuro}}">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path class="icone-sol" d="M12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9ZM12 1.5v2.2M12 20.3v2.2M1.5 12h2.2M20.3 12h2.2M4.6 4.6l1.5 1.5M17.9 17.9l1.5 1.5M4.6 19.4l1.5-1.5M17.9 6.1l1.5-1.5" />
+            <path class="icone-lua" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" />
+          </svg>
+        </button>
+{{seletor}}
+        <a class="botao botao-pequeno menu-orcamento" href="#contato">{{pedir}}</a>
+        <button class="menu-abrir" type="button" aria-expanded="false" aria-controls="menu-links" aria-label="{{menu_abrir}}">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </button>
+      </nav>
+    </div>
+    <!-- A régua do editor (07/11/2026): a página inteira é uma sequência; a agulha anda com a rolagem e mostra o
+         timecode e a seção. Os marcadores saem das seções com data-tc (js/digital.js, bloco 8). Sem JavaScript, não
+         aparece. -->
+    <div class="regua" aria-hidden="true" data-regua>
+      <div class="dentro regua-dentro">
+        <p class="regua-leitura"><span class="regua-tc" data-regua-tc>00:00:00:00</span><span class="regua-secao" data-regua-secao>{{sec_abertura}}</span></p>
+        <div class="regua-faixa" data-regua-faixa>
+          <span class="agulha" data-agulha></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="abertura" id="inicio" data-tc="0" data-nome="{{sec_abertura}}">
+      <div class="dentro abertura-dentro">
+        <div class="abertura-texto">
+          <p class="sobretitulo"><span class="tc">00:00:00:00</span> {{ab_sobre}}</p>
+          <h1>{{ab_titulo}}</h1>
+          <p class="abertura-sub">{{ab_sub}}</p>
+          <div class="botoes">
+            <a class="botao" href="#servicos"><svg class="icone" aria-hidden="true"><use href="#i-play"/></svg>{{ab_montar}}</a>
+            <a class="botao botao-linha" href="#raiox"><svg class="icone" aria-hidden="true"><use href="#i-corte"/></svg>{{ab_raiox}}</a>
+          </div>
+        </div>
+        <!-- O monitor de programa: o visor da câmera com o Linu (sempre em escala inteira: 1× no celular, 2× do
+             tablet em diante), o REC, o timecode e a barra de reprodução embaixo -->
+        <figure class="monitor">
+          <p class="monitor-barra" aria-hidden="true"><span class="monitor-nome">{{monitor_nome}}</span><span>{{monitor_arquivo}}</span></p>
+          <div class="visor-tela">
+            <span class="visor-rec">REC</span>
+            <span class="visor-tempo">00:00:12:04</span>
+            <img class="pixel visor-linu" data-linu-vivo data-piscar="{{raiz}}img/linu-camera-piscando.png" src="{{raiz}}img/linu-camera.png" alt="{{linu_alt}}" width="128" height="198">
+            <span class="visor-canto visor-canto-1"></span><span class="visor-canto visor-canto-2"></span>
+            <span class="visor-canto visor-canto-3"></span><span class="visor-canto visor-canto-4"></span>
+            <!-- A foto ao trocar o tema (07/11/2026): o obturador fecha e abre, o flash e o Linu posando (js/digital.js, bloco 1) -->
+            <span class="visor-obturador" aria-hidden="true"></span>
+            <span class="visor-flash" aria-hidden="true"></span>
+          </div>
+          <div class="monitor-trilho" aria-hidden="true">
+            <span class="trilho-entrada"></span><span class="trilho-saida"></span>
+            <span class="trilho-agulha" data-trilho-agulha></span>
+          </div>
+          <figcaption data-visor-legenda>{{tomada_1}}</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Raio-X (07/11/2026): oito perguntas de sim ou não que montam o pacote recomendado (js/digital.js, bloco 9).
+         Sem JavaScript, a seção não aparece. -->
+    <section class="secao raiox" id="raiox" data-tc="15" data-nome="{{sec_raiox}}">
+      <div class="dentro">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:00:15:00</span><h2 data-mov="palavras">{{rx_titulo}}</h2></div>
+        <p class="secao-sub" data-mov="sobe">{{rx_sub}}</p>
+        <div class="raiox-grade">
+          <!-- celular e tablet: o medidor fica preso no alto enquanto a pessoa responde, e leva ao resultado -->
+          <a class="raiox-mini" href="#raiox-resultado" data-raiox-mini hidden>
+            <span class="medidor medidor-mini" aria-hidden="true" data-medidor-mini><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+            <span data-raiox-mini-texto>{{rx_mini_0}}</span><span class="raiox-mini-ver">{{rx_ver}}</span>
+          </a>
+          <div class="perguntas" data-mov-grupo="sobe">
+            <fieldset class="pergunta" data-pergunta="maps">
+              <legend>{{rxp_maps}}</legend>
+              <label><input type="radio" name="rx-maps" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-maps" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+            <fieldset class="pergunta" data-pergunta="perfil">
+              <legend>{{rxp_perfil}}</legend>
+              <label><input type="radio" name="rx-perfil" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-perfil" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+            <fieldset class="pergunta" data-pergunta="posta">
+              <legend>{{rxp_posta}}</legend>
+              <label><input type="radio" name="rx-posta" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-posta" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+            <fieldset class="pergunta" data-pergunta="video">
+              <legend>{{rxp_video}}</legend>
+              <label><input type="radio" name="rx-video" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-video" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+            <fieldset class="pergunta" data-pergunta="anuncio">
+              <legend>{{rxp_anuncio}}</legend>
+              <label><input type="radio" name="rx-anuncio" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-anuncio" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+            <fieldset class="pergunta" data-pergunta="marca">
+              <legend>{{rxp_marca}}</legend>
+              <label><input type="radio" name="rx-marca" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-marca" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+            <fieldset class="pergunta" data-pergunta="whats">
+              <legend>{{rxp_whats}}</legend>
+              <label><input type="radio" name="rx-whats" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-whats" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+            <fieldset class="pergunta" data-pergunta="site">
+              <legend>{{rxp_site}}</legend>
+              <label><input type="radio" name="rx-site" value="sim"><span>{{sim}}</span></label>
+              <label><input type="radio" name="rx-site" value="nao"><span>{{nao}}</span></label>
+            </fieldset>
+          </div>
+          <!-- só no celular (11/11/2026): uma pergunta por vez, de lado; responder já leva à próxima -->
+          <div class="perguntas-nav" data-perguntas-nav hidden>
+            <button type="button" class="perguntas-seta" data-perguntas-ir="-1" aria-label="{{rx_anterior}}">←</button>
+            <span data-perguntas-pos aria-live="polite">{{rx_pos_1}}</span>
+            <button type="button" class="perguntas-seta" data-perguntas-ir="1" aria-label="{{rx_proxima}}">→</button>
+          </div>
+          <!-- O resultado como o painel de medição do editor: oito barras, uma por pergunta (laranja = falta algo) -->
+          <div class="raiox-resultado" id="raiox-resultado" aria-live="polite">
+            <p class="painel-rotulo" aria-hidden="true">{{rx_medicao}}</p>
+            <div class="medidor" aria-hidden="true" data-medidor>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="raiox-contagem" data-raiox-contagem>{{rx_contagem_0}}</p>
+            <p class="raiox-vazio" data-raiox-vazio>{{rx_vazio}}</p>
+            <ul class="raiox-lista" data-raiox-lista></ul>
+            <p class="raiox-total" data-raiox-total hidden></p>
+            <p class="raiox-site" data-raiox-site hidden>{{rx_site}}</p>
+            <button type="button" class="botao" data-raiox-usar hidden><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{levar}}</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Serviços: a linha do tempo. Cada área é uma trilha (V1 a V3 com a tira de quadros, A1 a A3 com a forma de
+         onda), cada serviço é um clipe, e a sequência embaixo é o pacote sendo montado. Tocar no nome da trilha mostra
+         só ela; tocar de novo, ou em "Todas as trilhas", volta tudo (js/digital.js, blocos 3 e 4). -->
+    <section class="secao secao-mesa" id="servicos" data-tc="35" data-nome="{{menu_servicos}}">
+      <div class="dentro">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:00:35:00</span><h2 data-mov="palavras">{{menu_servicos}}</h2></div>
+        <p class="secao-sub" data-mov="sobe">{{sv_sub}}</p>
+        <p class="servicos-nota" id="servicos-nota">{{sv_nota}}</p>
+
+        <div class="timeline" data-timeline>
+          <div class="timeline-barra">
+            <p class="timeline-titulo"><span class="tc-texto">{{sv_resumo}}</span></p>
+            <button type="button" class="ferramenta" data-area="todas" aria-pressed="true" hidden>{{sv_todas}}</button>
+          </div>
+          <div class="timeline-regua" aria-hidden="true"><span>00:00</span><span>00:10</span><span>00:20</span><span>00:30</span><span>00:40</span><span>00:50</span></div>
+
+          <div class="trilhas" data-mov-grupo="lado" data-servicos>
+            <div class="trilha" data-trilha="video">
+              <button type="button" class="trilha-cabeca" data-area="video" aria-pressed="false">
+                <span class="trilha-id">V1</span>
+                <span class="trilha-nome"><svg class="icone" aria-hidden="true"><use href="#i-video"/></svg><span class="so-leitor">{{trilha_so}}</span>{{tr_video}}</span>
+                <span class="trilha-conta">{{clipes_4}}</span>
+              </button>
+              <div class="trilha-faixa">
+                <article class="clipe servico" data-cat="video" data-id="reels" data-preco="{{n.reels}}" data-tipo="mensal" data-destaque>
+                  <h3>{{s_reels}}</h3>
+                  <p class="clipe-texto">{{st_reels}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.reels}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="video" data-id="youtube" data-preco="{{n.youtube}}" data-tipo="mensal">
+                  <h3>{{s_youtube}}</h3>
+                  <p class="clipe-texto">{{st_youtube}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.youtube}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="video" data-id="institucional" data-preco="{{n.institucional}}" data-tipo="unico">
+                  <h3>{{s_institucional}}</h3>
+                  <p class="clipe-texto">{{st_institucional}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.institucional}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="video" data-id="cortes" data-preco="{{n.cortes}}" data-tipo="unico">
+                  <h3>{{s_cortes}}</h3>
+                  <p class="clipe-texto">{{st_cortes}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.cortes}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+              </div>
+            </div>
+
+            <div class="trilha" data-trilha="redes">
+              <button type="button" class="trilha-cabeca" data-area="redes" aria-pressed="false">
+                <span class="trilha-id">V2</span>
+                <span class="trilha-nome"><svg class="icone" aria-hidden="true"><use href="#i-redes"/></svg><span class="so-leitor">{{trilha_so}}</span>{{tr_redes}}</span>
+                <span class="trilha-conta">{{clipes_3}}</span>
+              </button>
+              <div class="trilha-faixa">
+                <article class="clipe servico" data-cat="redes" data-id="gestao" data-preco="{{n.gestao}}" data-tipo="mensal" data-destaque>
+                  <h3>{{s_gestao}}</h3>
+                  <p class="clipe-texto">{{st_gestao}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.gestao}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="redes" data-id="artes" data-preco="{{n.artes}}" data-tipo="unico">
+                  <h3>{{s_artes}}</h3>
+                  <p class="clipe-texto">{{st_artes}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.artes}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="redes" data-id="perfil" data-preco="{{n.perfil}}" data-tipo="unico">
+                  <h3>{{s_perfil}}</h3>
+                  <p class="clipe-texto">{{st_perfil}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.perfil}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+              </div>
+            </div>
+
+            <div class="trilha" data-trilha="marca">
+              <button type="button" class="trilha-cabeca" data-area="marca" aria-pressed="false">
+                <span class="trilha-id">V3</span>
+                <span class="trilha-nome"><svg class="icone" aria-hidden="true"><use href="#i-marca"/></svg><span class="so-leitor">{{trilha_so}}</span>{{tr_marca}}</span>
+                <span class="trilha-conta">{{clipes_3}}</span>
+              </button>
+              <div class="trilha-faixa">
+                <article class="clipe servico" data-cat="marca" data-id="identidade" data-preco="{{n.identidade}}" data-tipo="unico" data-destaque>
+                  <h3>{{s_identidade}}</h3>
+                  <p class="clipe-texto">{{st_identidade}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.identidade}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="marca" data-id="cartao" data-preco="{{n.cartao}}" data-tipo="unico">
+                  <h3>{{s_cartao}}</h3>
+                  <p class="clipe-texto">{{st_cartao}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.cartao}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="marca" data-id="cardapio" data-preco="{{n.cardapio}}" data-tipo="unico">
+                  <h3>{{s_cardapio}}</h3>
+                  <p class="clipe-texto">{{st_cardapio}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.cardapio}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+              </div>
+            </div>
+
+            <div class="trilha" data-trilha="anuncios">
+              <button type="button" class="trilha-cabeca" data-area="anuncios" aria-pressed="false">
+                <span class="trilha-id">A1</span>
+                <span class="trilha-nome"><svg class="icone" aria-hidden="true"><use href="#i-anuncios"/></svg><span class="so-leitor">{{trilha_so}}</span>{{tr_anuncios}}</span>
+                <span class="trilha-conta">{{clipes_2}}</span>
+              </button>
+              <div class="trilha-faixa">
+                <article class="clipe servico" data-cat="anuncios" data-id="meta" data-preco="{{n.meta}}" data-tipo="mensal" data-destaque>
+                  <h3>{{s_meta}}</h3>
+                  <p class="clipe-texto">{{st_meta}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.meta}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="anuncios" data-id="google-ads" data-preco="{{n.google-ads}}" data-tipo="mensal">
+                  <h3>{{s_google_ads}}</h3>
+                  <p class="clipe-texto">{{st_google_ads}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.google-ads}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+              </div>
+            </div>
+
+            <div class="trilha" data-trilha="encontrado">
+              <button type="button" class="trilha-cabeca" data-area="encontrado" aria-pressed="false">
+                <span class="trilha-id">A2</span>
+                <span class="trilha-nome"><svg class="icone" aria-hidden="true"><use href="#i-encontrado"/></svg><span class="so-leitor">{{trilha_so}}</span>{{tr_encontrado}}</span>
+                <span class="trilha-conta">{{clipes_2}}</span>
+              </button>
+              <div class="trilha-faixa">
+                <article class="clipe servico" data-cat="encontrado" data-id="meu-negocio" data-preco="{{n.meu-negocio}}" data-tipo="unico" data-destaque>
+                  <h3>{{s_meu_negocio}}</h3>
+                  <p class="clipe-texto">{{st_meu_negocio}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.meu-negocio}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="encontrado" data-id="seo" data-preco="{{n.seo}}" data-tipo="unico">
+                  <h3>{{s_seo}}</h3>
+                  <p class="clipe-texto">{{st_seo}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.seo}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+              </div>
+            </div>
+
+            <div class="trilha" data-trilha="automacao">
+              <button type="button" class="trilha-cabeca" data-area="automacao" aria-pressed="false">
+                <span class="trilha-id">A3</span>
+                <span class="trilha-nome"><svg class="icone" aria-hidden="true"><use href="#i-automacao"/></svg><span class="so-leitor">{{trilha_so}}</span>{{tr_automacao}}</span>
+                <span class="trilha-conta">{{clipes_3}}</span>
+              </button>
+              <div class="trilha-faixa">
+                <article class="clipe servico" data-cat="automacao" data-id="whatsapp" data-preco="{{n.whatsapp}}" data-tipo="unico" data-destaque>
+                  <h3>{{s_whatsapp}}</h3>
+                  <p class="clipe-texto">{{st_whatsapp}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.whatsapp}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="automacao" data-id="email" data-preco="{{n.email}}" data-tipo="unico">
+                  <h3>{{s_email}}</h3>
+                  <p class="clipe-texto">{{st_email}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.email}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+                <article class="clipe servico" data-cat="automacao" data-id="ia" data-preco="{{n.ia}}" data-tipo="unico">
+                  <h3>{{s_ia}}</h3>
+                  <p class="clipe-texto">{{st_ia}}</p>
+                  <span class="clipe-midia" aria-hidden="true"></span>
+                  <p class="servico-preco">{{preco.ia}}</p>
+                  <button type="button" class="adicionar" data-adicionar aria-pressed="false"><svg class="icone" aria-hidden="true"><use href="#i-mais"/></svg><span data-rotulo>{{adicionar}}</span></button>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- A sequência: o pacote sendo montado. No computador, fica presa embaixo enquanto a linha do tempo está na
+               tela; no celular e no tablet, fica no fim das trilhas, e a barra de baixo resume -->
+          <div class="sequencia" data-pacote>
+            <p class="sequencia-cabeca"><span class="trilha-id">SEQ</span><span>{{seq_titulo}}</span></p>
+            <div class="sequencia-faixa">
+              <p class="pacote-vazio" data-pacote-vazio>{{seq_vazia}}</p>
+              <ul class="pacote-lista" data-pacote-lista></ul>
+            </div>
+            <div class="sequencia-pe">
+              <p class="pacote-total" data-pacote-total hidden></p>
+              <button type="button" class="botao botao-linha botao-pequeno pacote-limpar" data-pacote-limpar hidden>{{limpar}}</button>
+              <a class="botao botao-pequeno pacote-enviar" href="#contato" data-pacote-enviar><svg class="icone" aria-hidden="true"><use href="#i-enviar"/></svg>{{pedir}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pacotes prontos: sequências já montadas, cada uma com os seus clipes na cor da trilha -->
+    <section class="secao secao-alt" id="pacotes" data-tc="70" data-nome="{{menu_pacotes}}">
+      <div class="dentro">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:10:00</span><h2 data-mov="palavras">{{pc_titulo}}</h2></div>
+        <p class="secao-sub" data-mov="sobe">{{pc_sub}}</p>
+        <p class="faixa-dica" aria-hidden="true">{{pc_dica}}</p>
+        <ol class="prontos" data-mov-grupo="sobe">
+          <li class="pronto">
+            <div class="pronto-info">
+              <h3 class="pacote-nome">{{pc_comecar}}</h3>
+              <p>{{pc_comecar_t}}</p>
+            </div>
+            <ul class="pronto-clipes">
+              <li data-cat="redes">{{s_perfil}}</li>
+              <li data-cat="encontrado">{{s_meu_negocio}}</li>
+              <li data-cat="video">{{s_reels}}</li>
+            </ul>
+            <p class="pacote-preco" data-pacote-preco="perfil meu-negocio reels">{{pacote.perfil meu-negocio reels}}</p>
+            <button type="button" class="botao botao-linha" data-escolher-pacote="perfil meu-negocio reels"><svg class="icone" aria-hidden="true"><use href="#i-proximo"/></svg>{{pc_escolher}}</button>
+          </li>
+          <li class="pronto pronto-destaque">
+            <div class="pronto-info">
+              <h3 class="pacote-nome">{{pc_crescer}} <span class="selo">{{pc_selo}}</span></h3>
+              <p>{{pc_crescer_t}}</p>
+            </div>
+            <ul class="pronto-clipes">
+              <li data-cat="redes">{{s_gestao}}</li>
+              <li data-cat="video">{{s_reels}}</li>
+              <li data-cat="anuncios">{{s_meta}}</li>
+            </ul>
+            <p class="pacote-preco" data-pacote-preco="gestao reels meta">{{pacote.gestao reels meta}}</p>
+            <button type="button" class="botao" data-escolher-pacote="gestao reels meta"><svg class="icone" aria-hidden="true"><use href="#i-proximo"/></svg>{{pc_escolher}}</button>
+          </li>
+          <li class="pronto">
+            <div class="pronto-info">
+              <h3 class="pacote-nome">{{pc_completo}}</h3>
+              <p>{{pc_completo_t}}</p>
+            </div>
+            <ul class="pronto-clipes">
+              <li data-cat="marca">{{s_identidade}}</li>
+              <li data-cat="redes">{{s_gestao}}</li>
+              <li data-cat="video">{{s_reels}}</li>
+              <li data-cat="anuncios">{{pc_anuncios_todos}}</li>
+              <li data-cat="automacao">{{s_whatsapp}}</li>
+            </ul>
+            <p class="pacote-preco" data-pacote-preco="identidade gestao reels meta google-ads whatsapp">{{pacote.identidade gestao reels meta google-ads whatsapp}}</p>
+            <button type="button" class="botao botao-linha" data-escolher-pacote="identidade gestao reels meta google-ads whatsapp"><svg class="icone" aria-hidden="true"><use href="#i-proximo"/></svg>{{pc_escolher}}</button>
+          </li>
+          <li class="pronto pronto-site">
+            <div class="pronto-info">
+              <h3 class="pacote-nome">{{pc_site}}</h3>
+              <p>{{pc_site_t}}</p>
+            </div>
+            <a class="botao botao-linha" href="{{sites_url}}#contato">{{pc_ver_sites}}</a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Trabalhos (07/11/2026): só o que é de verdade, como os arquivos do projeto no editor. Os de clientes entram com
+         permissão (PENDENTES do linuarquivos) -->
+    <section class="secao" id="trabalhos" data-tc="85" data-nome="{{tb_titulo}}">
+      <div class="dentro">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:25:00</span><h2 data-mov="palavras">{{tb_titulo}}</h2></div>
+        <p class="secao-sub" data-mov="sobe">{{tb_sub}}</p>
+        <ul class="arquivos" data-mov-grupo="sobe">
+          <li class="arquivo">
+            <span class="arquivo-miniatura" data-cat="marca" aria-hidden="true"><svg class="icone"><use href="#i-marca"/></svg></span>
+            <div class="arquivo-texto">
+              <h3>{{tb_familia}}</h3>
+              <p>{{tb_familia_t}}</p>
+            </div>
+            <a class="botao botao-linha botao-pequeno" href="https://familia.linupedia.com.br/identidade">{{tb_familia_b}}</a>
+          </li>
+          <li class="arquivo">
+            <span class="arquivo-miniatura" data-cat="encontrado" aria-hidden="true"><svg class="icone"><use href="#i-encontrado"/></svg></span>
+            <div class="arquivo-texto">
+              <h3>{{tb_sites}}</h3>
+              <p>{{tb_sites_t}}</p>
+            </div>
+            <a class="botao botao-linha botao-pequeno" href="{{sites_url}}#projetos">{{tb_sites_b}}</a>
+          </li>
+          <li class="arquivo arquivo-vago">
+            <span class="arquivo-miniatura" aria-hidden="true"><svg class="icone"><use href="#i-video"/></svg></span>
+            <div class="arquivo-texto">
+              <h3>{{tb_clientes}}</h3>
+              <p>{{tb_clientes_t}}</p>
+            </div>
+            <a class="botao botao-linha botao-pequeno" href="#contato">{{pedir}}</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="secao secao-alt" id="como" data-tc="100" data-nome="{{menu_como}}" data-curto="{{como_curto}}">
+      <div class="dentro">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:40:00</span><h2 data-mov="palavras">{{menu_como}}</h2></div>
+        <p class="secao-sub" data-mov="sobe">{{como_sub}}</p>
+        <ol class="passos" data-mov-grupo="lado">
+          <li><span class="passo-tempo">00:00</span><b>{{passo_1}}</b><span>{{passo_1_t}}</span></li>
+          <li><span class="passo-tempo">00:15</span><b>{{passo_2}}</b><span>{{passo_2_t}}</span></li>
+          <li><span class="passo-tempo">00:30</span><b>{{passo_3}}</b><span>{{passo_3_t}}</span></li>
+          <li><span class="passo-tempo">00:45</span><b>{{passo_4}}</b><span>{{passo_4_t}}</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="secao" id="duvidas" data-tc="115" data-nome="{{menu_duvidas}}">
+      <div class="dentro duvidas-dentro">
+        <div class="cabeca"><span class="tc" aria-hidden="true">00:01:55:00</span><h2 data-mov="palavras">{{menu_duvidas}}</h2></div>
+        <div class="duvidas" data-mov-grupo="sobe">
+          <details>
+            <summary>{{faq_custa_p}}</summary>
+            <p>{{faq_custa_r}}</p>
+          </details>
+          <details>
+            <summary>{{faq_verba_p}}</summary>
+            <p>{{faq_verba_r}}</p>
+          </details>
+          <details>
+            <summary>{{faq_tudo_p}}</summary>
+            <p>{{faq_tudo_r}}</p>
+          </details>
+          <details>
+            <summary>{{faq_fidelidade_p}}</summary>
+            <p>{{faq_fidelidade_r}}</p>
+          </details>
+          <details>
+            <summary>{{faq_pagamento_p}}</summary>
+            <p>{{faq_pagamento_r}}</p>
+          </details>
+          <details>
+            <summary>{{faq_revisoes_p}}</summary>
+            <p>{{faq_revisoes_r}}</p>
+          </details>
+          <details>
+            <summary>{{faq_gravo_p}}</summary>
+            <p>{{faq_gravo_r}}</p>
+          </details>
+          <details>
+            <summary>{{faq_fora_p}}</summary>
+            <p>{{faq_fora_r}}</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- O orçamento como a janela de exportar do editor: a sequência e os dados viram a mensagem pronta -->
+    <section class="secao secao-alt contato" id="contato" data-tc="130" data-nome="{{sec_orcamento}}">
+      <div class="dentro contato-dentro">
+        <div class="contato-texto">
+          <div class="cabeca"><span class="tc" aria-hidden="true">00:02:10:00</span><h2 data-mov="palavras">{{ct_titulo}}</h2></div>
+          <p>{{ct_texto}}</p>
+          <p class="contato-canais">{{ct_canais}}</p>
+        </div>
+        <div class="formulario" data-formulario>
+          <p class="painel-rotulo" aria-hidden="true">{{ct_exportar}}</p>
+          <div class="campo">
+            <label for="nome">{{ct_nome}}</label>
+            <input type="text" id="nome" name="nome" autocomplete="name" required aria-describedby="nome-erro">
+            <p class="campo-erro" id="nome-erro" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="email">{{ct_email}}</label>
+            <input type="email" id="email" name="email" autocomplete="email" inputmode="email" aria-describedby="email-erro">
+            <p class="campo-erro" id="email-erro" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="negocio">{{ct_negocio}}</label>
+            <input type="text" id="negocio" name="negocio" placeholder="{{ct_negocio_ex}}" required aria-describedby="negocio-erro">
+            <p class="campo-erro" id="negocio-erro" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <span class="campo-rotulo" id="pacote-rotulo">{{ct_pacote}}</span>
+            <p class="formulario-pacote" data-formulario-pacote>{{pacote_nenhum}}</p>
+            <p class="formulario-total" data-formulario-total hidden></p>
+          </div>
+          <div class="campo">
+            <label for="mensagem">{{ct_mais}}</label>
+            <textarea id="mensagem" name="mensagem" rows="3" placeholder="{{ct_mais_ex}}"></textarea>
+          </div>
+          <!-- campo que só robô preenche (o servidor ignora o pedido que vier com ele) -->
+          <div class="pote" aria-hidden="true"><label>{{ct_pote}}<input type="text" name="site_extra" tabindex="-1" autocomplete="off"></label></div>
+          <div class="formulario-botoes">
+            <button type="button" class="botao" data-enviar="formulario">{{enviar_formulario}}</button>
+            <a class="botao botao-whatsapp" href="https://wa.me/5524981013398" target="_blank" rel="noopener" data-enviar="whatsapp"><svg class="icone" aria-hidden="true"><use href="#i-enviar"/></svg>{{ct_whats}}</a>
+          </div>
+          <p class="formulario-status" data-formulario-status role="status" aria-live="polite"></p>
+          <p class="formulario-privacidade">{{ct_privacidade}}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- No celular e no tablet, o pacote fica preso embaixo, ao alcance do polegar; vazio, a barra fica só com o pedir
+       (desde 07/11/2026), e some na abertura, na sequência e no contato -->
+  <aside class="barra-pacote" data-barra aria-label="{{barra_rotulo}}" hidden>
+    <span class="barra-texto" data-barra-texto aria-live="polite"></span>
+    <a class="botao botao-pequeno" href="#contato">{{pedir}}</a>
+  </aside>
+
+  <footer class="rodape" data-tc-fim="150">
+    <div class="dentro rodape-dentro">
+      <p>{{rodape}}</p>
+      <a class="rodape-link" href="https://familia.linupedia.com.br/">{{faixa_rotulo}}</a>
+      <a class="rodape-link" href="https://familia.linupedia.com.br/identidade">{{rodape_identidade}}</a>
+      <a class="topo-voltar" href="#" data-voltar>{{voltar}} <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+</body>
+</html>

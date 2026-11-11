@@ -1,5 +1,5 @@
 {
-  "_leia": "Os preços de referência (“a partir de”) deste site, em reais. A página sai daqui: depois de mudar, rode python3 ferramentas/precos-servicos.py. A Família Linu lê este arquivo (do GitHub) para montar as rotas.",
+  "_leia": "Os preços de referência (“a partir de”) deste site. Em reais, em \"servicos\"; em euro e dólar, em \"moedas\" (as páginas da Europa e da Ásia-Pacífico e internacional). As páginas saem daqui: depois de mudar, rode node ferramentas/gerar-idiomas.mjs. A Família Linu lê este arquivo (do GitHub) para montar as rotas. Uma moeda com \"pendente\" não publica; com \"provisorio\", publica e só avisa.",
   "moeda": "BRL",
   "servicos": {
     "reels": {
@@ -75,6 +75,52 @@
     "ia": {
       "valor": 1500,
       "tipo": "unico"
+    }
+  },
+  "moedas": {
+    "EUR": {
+      "provisorio": "sugestão de 11/11/2026, a partir de faixas de freelancers e marketplaces (Portugal, Espanha, Reino Unido, EUA); falta aprovar",
+      "valores": {
+        "reels": 160,
+        "youtube": 160,
+        "institucional": 700,
+        "cortes": 90,
+        "gestao": 350,
+        "artes": 150,
+        "perfil": 100,
+        "identidade": 500,
+        "cartao": 60,
+        "cardapio": 150,
+        "meta": 250,
+        "google-ads": 250,
+        "meu-negocio": 120,
+        "seo": 200,
+        "whatsapp": 150,
+        "email": 200,
+        "ia": 600
+      }
+    },
+    "USD": {
+      "provisorio": "sugestão de 11/11/2026, a partir de faixas de freelancers e marketplaces (Portugal, Espanha, Reino Unido, EUA); falta aprovar",
+      "valores": {
+        "reels": 180,
+        "youtube": 180,
+        "institucional": 750,
+        "cortes": 100,
+        "gestao": 400,
+        "artes": 170,
+        "perfil": 110,
+        "identidade": 550,
+        "cartao": 70,
+        "cardapio": 170,
+        "meta": 280,
+        "google-ads": 280,
+        "meu-negocio": 130,
+        "seo": 220,
+        "whatsapp": 170,
+        "email": 220,
+        "ia": 650
+      }
     }
   }
 }

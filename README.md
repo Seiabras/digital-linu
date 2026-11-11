@@ -12,16 +12,19 @@ apontam um para o outro, mas cada um vive no seu repositório.
 
 | Arquivo / pasta | O que tem |
 |---|---|
-| `index.html` | A página, montada como um programa de edição: a régua com a agulha, a abertura com o monitor, o Raio-X, a linha do tempo dos serviços (17 clipes em seis trilhas, com preço) e a sequência do pacote, pacotes prontos, trabalhos, como funciona, dúvidas e orçamento. |
+| `index.html` e `pt-pt/`, `es/`, `ca/`, `nl/`, `en/`, `fr/`, `de/`, `it/`, `intl/`, `ja/`, `ko/`, `zh-hant/` | A página em cada idioma (geradas), montada como um programa de edição: a régua com a agulha, a abertura com o monitor, o Raio-X, a linha do tempo dos serviços (17 clipes em seis trilhas, com preço) e a sequência do pacote, pacotes prontos, trabalhos, como funciona, dúvidas e orçamento. |
 | `404.html` | Página de erro (o Caddy mostra em qualquer endereço que não existe). |
 | `css/estilo.css` | Visual, com as três versões (celular até 699 px, tablet até 1099 px, computador) e o modo claro e escuro. |
 | `js/tema-inicio.js` | Aplica o tema escolhido antes de pintar. |
-| `js/digital.js` | Tema com a foto, menu, as trilhas (mostrar só uma), a sequência com a estimativa, o formulário, voltar ao topo, entradas ao rolar, a régua do editor e o Raio-X. |
+| `js/idiomas.js` | O seletor de região e idioma e o aviso que sugere a página da região de quem chega (o mesmo do Linu Sites). |
+| `js/digital.js` | Os textos vêm do bloco `textos-js` da página e o dinheiro, da moeda dela (`data-moeda`). Tema com a foto, menu, as trilhas (mostrar só uma), a sequência com a estimativa, o formulário, voltar ao topo, entradas ao rolar, a régua do editor e o Raio-X. |
 | `img/` | O Linu (`linu-camera.png` e `linu-frente.png`, em pixel art), os ícones do site e a imagem de compartilhar (`compartilhar.png`, 1200 × 630). |
 | `fontes/` | Archivo (textos e títulos) e JetBrains Mono (timecodes), licença OFL (`OFL-archivo.txt`, `OFL-jetbrains-mono.txt`), servidas pelo próprio site. |
 | `robots.txt`, `sitemap.xml` | Para os buscadores. |
 | `ferramentas/conferir-visual.mjs` | A conferência visual que o Actions roda antes de publicar (cópia do `linuarquivos/modelos/ferramentas/`): 390, 820 e 1280 px, claro e escuro; reprova com rolagem lateral, erro no console, arquivo faltando ou falha séria de acessibilidade, e guarda as capturas como artefato. No computador: `node ferramentas/conferir-visual.mjs --raiz . --playwright <pasta do playwright> --axe <axe.min.js>`. |
-| `precos.json` e `ferramentas/precos-servicos.py` | **Os preços numa fonte só** (07/11/2026): o `precos.json` é a fonte; o script escreve no `index.html` o `data-preco`/`data-tipo`, a linha “a partir de” de cada serviço, o `minPrice` do JSON-LD e o total dos pacotes prontos. Para mudar um preço: editar o `precos.json` e rodar `python3 ferramentas/precos-servicos.py`. O Actions confere (`--conferir`) e não publica se a página discordar. A Família Linu lê este arquivo para as rotas. |
+| `ferramentas/pagina/` e `ferramentas/gerar-idiomas.mjs` | **A página em 13 idiomas** (11/11/2026): o `modelo.html` (o HTML, com `{{chave}}` no lugar de cada texto) e os textos de cada idioma (`textos/<código>.json`). O gerador escreve o `index.html` (pt-BR) e o `<pasta>/index.html` de cada idioma, o `sitemap.xml` e as versões dos arquivos. **O `index.html` é gerado: não edite à mão.** |
+| `precos.json` | **Os preços numa fonte só**: em reais em `servicos` e, desde 11/11/2026, em euro e dólar em `moedas`. O gerador escreve o `data-preco`, a linha “a partir de” de cada serviço, os dados que o Google lê e o total dos pacotes prontos. Para mudar um preço: editar o `precos.json` e rodar `node ferramentas/gerar-idiomas.mjs`. O Actions confere (`--conferir`) e não publica se a página discordar. A Família Linu lê este arquivo para as rotas. |
+| `ferramentas/gerar-fontes.mjs` | As fontes de japonês, coreano e chinês (`fontes/noto-*.woff2`), cortadas só com os caracteres que cada página usa. Roda no fim do gerador. |
 | `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. |
 | `IDENTIDADE.md` | As decisões de identidade (o objeto, as cores, as fontes, a voz, o que evitar). Ler antes de mexer em tela. |
 | `DIRETRIZES-UX.md` | As diretrizes de interface e desempenho de todos os projetos. |
@@ -45,7 +48,7 @@ apontam um para o outro, mas cada um vive no seu repositório.
   tem site recebe o link do Linu Sites. Respostas no navegador (`localStorage`, `digital-raiox`).
 - **Preços “a partir de” (07/11/2026):** cada cartão tem `data-preco` e `data-tipo` (`unico` ou `mensal`), e a
   linha do preço. O pacote, a barra de baixo, o formulário, a mensagem, o Raio-X e os pacotes prontos somam à parte o
-  que é entrega única e o que é por mês. Para mudar um preço: o `precos.json` e `python3 ferramentas/precos-servicos.py`, que acerta o
+  que é entrega única e o que é por mês. Para mudar um preço: o `precos.json` e `node ferramentas/gerar-idiomas.mjs`, que acerta o
   cartão, o JSON-LD e o total escrito dos pacotes prontos.
 - **Celular mais curto:** desde 07/11/2026 cada trilha mostra o clipe mais pedido (`data-destaque`) primeiro e os
   outros rolando de lado dentro dela, no lugar do antigo “Ver todos os 17 serviços”.
@@ -77,6 +80,37 @@ apontam um para o outro, mas cada um vive no seu repositório.
   negócio, o que escolheu, a estimativa e a mensagem) para `/api/pedido` por `sendBeacon`, sem atrasar a abertura; o
   Caddy encaminha para o `linu-pedidos` (linuarquivos/servidor), que guarda por 12 meses e avisa por e-mail. O aviso de
   privacidade fica embaixo dos botões, e um campo escondido (`site_extra`) separa os robôs.
+
+## Idiomas (11/11/2026)
+
+A página existe em 13 idiomas, nas mesmas pastas do Linu Sites: pt-BR na raiz e `pt-pt/`, `es/`, `ca/`, `nl/`, `en/`,
+`fr/`, `de/`, `it/` (Europa, em euro), `intl/`, `ja/`, `ko/` e `zh-hant/` (Ásia-Pacífico e internacional, em dólar).
+
+```bash
+node ferramentas/gerar-idiomas.mjs             # grava as páginas, o sitemap, as fontes e as versões
+node ferramentas/gerar-idiomas.mjs --conferir  # só confere (é o que o Actions roda)
+```
+
+- **Mudar um texto:** no `ferramentas/pagina/textos/<código>.json` de cada idioma (`textos` vão no HTML; `js` vão para
+  os scripts). O gerador recusa gravar se um idioma tiver chave a mais ou a menos que o pt-BR, ou uma marca (`{n}`,
+  `{v}`) diferente. Pela regra 8, um texto novo nasce no pt-BR e os outros 12 entram numa leva só, depois de aprovado.
+- **Mudar o HTML:** no `ferramentas/pagina/modelo.html`. Além dos textos, o modelo usa `{{preco.id}}` (a linha “a
+  partir de” do serviço), `{{n.id}}` (o número) e `{{pacote.id id}}` (a soma de um pacote pronto).
+- **Preços por região:** real no Brasil, euro na Europa e dólar no resto (`moedas` do `precos.json`). Os valores em euro
+  e dólar de 11/11/2026 são uma sugestão a partir de faixas de mercado e estão marcados `provisorio` (publica e avisa);
+  com `pendente`, o Actions não publica.
+- **O que muda por região, e não só de língua:** o pagamento (Pix no Brasil; fatura em euro por SEPA na Europa;
+  transferência em dólar pela Wise no resto), a gravação no local (só no Brasil) e a dúvida “Atendem fora de Brasília?”,
+  que fora do Brasil vira “Atendem fora do Brasil?”. Estão nas chaves `faq_pagamento_r`, `faq_gravo_r`, `faq_fora_p` e
+  `faq_fora_r` de cada idioma.
+- **Seletor e aviso:** o globo no topo lista os idiomas por região; quem chega de outra região (pelo fuso do aparelho) ou
+  com o navegador em outra língua vê, uma vez, um aviso com o link. A página nunca troca sozinha.
+- **Para o Google:** cada página leva o `hreflang` de todas (o `x-default` é o inglês internacional) e o sitemap lista
+  as 13 com as alternativas.
+- **Japonês, coreano e chinês:** a Archivo não tem esses caracteres; vem a Noto Sans CJK do próprio site, cortada (precisa
+  do `pyftsubset` e da Noto Sans CJK no computador; sem eles o gerador avisa e o caractere novo sai na fonte do aparelho).
+- **Traduções sem leitura de nativo:** as 12 línguas foram traduzidas em 11/11/2026 e ainda não passaram por um nativo.
+- A página 404 e os pedidos que chegam (`/api/pedido`) continuam em português; a mensagem do pedido sai na língua da página.
 
 ## Ver no computador
 
