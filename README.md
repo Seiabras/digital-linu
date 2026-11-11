@@ -67,7 +67,8 @@ apontam um para o outro, mas cada um vive no seu repositório.
 - **A faixa da família (07/11/2026):** no alto, “Parte da família Linu, com …”, levando para a Família Linu
   (https://familia.linupedia.com.br). Todos os irmãos apontam para lá, e não mais um para o outro.
 - **Dúvidas com os termos simples:** pagamento (metade no aceite e metade na entrega; mensal no começo do mês), duas
-  rodadas de ajuste por entrega e o mensal sem fidelidade, com 30 dias de aviso. As mesmas regras do Linu Sites.
+  rodadas de ajuste por entrega e o mensal com 30 dias de aviso; desde 11/11/2026, mínimo de 3 meses nos anúncios e na
+  automação, e a gravação fora de Brasília com deslocamento e hospedagem à parte.
 - **Compartilhar e Google:** `img/compartilhar.png` (1200 × 630, o Linu no monitor e as trilhas embaixo; refeita em
   07/11/2026, renderizada no Playwright) nas etiquetas `og:` e
   `twitter:card`, e os dados estruturados (`ProfessionalService`, com os 17 serviços) no `<head>`.
