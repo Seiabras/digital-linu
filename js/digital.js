@@ -256,7 +256,7 @@
   var avisos = { nome: tx("aviso_nome"), negocio: tx("aviso_negocio"), email: tx("aviso_email") };
   var EMAIL = /^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i;
   // o que foi digitado não se perde ao recarregar
-  ["nome", "email", "negocio", "mensagem"].forEach(function (k) {
+  ["nome", "email", "telefone", "negocio", "mensagem"].forEach(function (k) {
     var v = ler("digital-" + k);
     if (v) campo(k).value = v;
     campo(k).addEventListener("input", function () { guardar("digital-" + k, campo(k).value); escreverMensagem(); });
@@ -296,7 +296,7 @@
   function dadosDo(canal) {
     var robo = form.querySelector('[name="site_extra"]');
     return {
-      nome: campo("nome").value.trim(), negocio: campo("negocio").value.trim(), email: campo("email").value.trim(),
+      nome: campo("nome").value.trim(), negocio: campo("negocio").value.trim(), email: campo("email").value.trim(), telefone: campo("telefone").value.trim(),
       pacote: nomesDoPacote(),
       estimativa: escolhidos.length ? estimativa(escolhidos) : "",
       mensagem: campo("mensagem").value.trim(), canal: canal, site_extra: robo ? robo.value : ""

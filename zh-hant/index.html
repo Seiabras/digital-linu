@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="../css/estilo.css?v=9f45f37c">
   <link rel="stylesheet" href="../css/movimento.css?v=6c3684a3">
   <script type="application/json" id="textos-js">{"tema_escuro_rotulo":"切換到深色模式","tema_escuro":"深色模式","menu_abrir":"開啟選單","rx_mini":"{n}／{t}","rx_pos":"第 {n} 題，共 {t} 題","rx_contagem":"已回答 {n}／{t} 題","levar":"加入我的方案","adicionar":"加入","pacote_nenhum":"還沒選擇服務也沒關係，在訊息裡告訴我們就好。","enviar_formulario":"用表單送出","tema_claro_rotulo":"切換到淺色模式","tema_claro":"淺色模式","tomada_escuro":"鏡次 {n}：喀嚓！Linu 拍下了深色模式。","tomada_claro":"鏡次 {n}：喀嚓！Linu 拍下了淺色模式。","menu_fechar":"關閉選單","a_partir":"{v} 起","por_mes":"每月 {v}","servicos_1":"1 項服務","servicos_n":"{n} 項服務","no_pacote":"已加入","tirar":"從方案中移除「{nome}」","estimativa":"估價：{v}","estimativa_form":"估價：{v}。確切價格會寫在提案中。","barra_total":"{servicos}：{v}","barra_sem":"方案中有 {servicos}","barra_vazia":"方案是空的","juncao":"；","aviso_nome":"請填寫你的名字。","aviso_negocio":"請告訴我們事業類型和所在城市。","aviso_email":"請填寫有效的電子郵件，例如 name@example.com。","msg_ola":"你好，Digital Linu！我想索取報價。","msg_nome":"名字：{v}","msg_negocio":"事業：{v}","msg_pacote":"方案：{v}","msg_estimativa":"頁面上的估價：{v}","enviando":"傳送中…","enviado":"已送出","recebido":"收到了！我們會在 1 個工作天內回覆到你的電子郵件（{email}）。","erro_envio":"目前無法送出。請稍後再試，或改用 WhatsApp 傳送。","rx_maps":"在 Google 地圖上搜尋的人還找不到你：這是第一步，也是最便宜的一步。","rx_perfil":"個人檔案就是櫥窗：從廣告或 Reels 過來的人，會在那裡決定要不要追蹤。","rx_posta":"發文不穩定，Instagram 就會減少顯示你的貼文。每月代操可以幫你排好發文行事曆。","rx_video":"短影音最能把你的個人檔案帶到還沒追蹤你的人面前。","rx_anuncio":"預算不多但瞄得準的廣告，第一個月就能帶來你所在地區的客人。","rx_marca":"固定的標誌和顏色，讓你發布的一切看起來都屬於同一個品牌。","rx_whats":"在 WhatsApp 上回得快，客人就不會跑去找競爭對手。","rx_site_sim":"有了網站，基礎 SEO 能幫助 Google 把你顯示給正在搜尋的人。","rx_em_dia":"一切都到位了。下一步通常是出現在 Google 搜尋結果的最上方。","rx_total":"建議項目估價：{v}","fechar":"關閉"}</script>
-  <script src="../js/digital.js?v=29b6d0b4" defer></script>
+  <script src="../js/digital.js?v=90b00826" defer></script>
   <script src="../js/idiomas.js?v=c601cc35" defer></script>
   <script src="../js/linu-vivo.js?v=daf0f399" defer></script>
   <script src="../js/movimento.js?v=c068d761" defer></script>
@@ -632,7 +632,7 @@
         <div class="contato-texto">
           <div class="cabeca"><span class="tc" aria-hidden="true">00:02:10:00</span><h2 data-mov="palavras">索取報價</h2></div>
           <p>確認你的方案，簡單介紹你的事業，再透過表單送出（回覆會寄到你的電子郵件），或用已經寫好訊息的 WhatsApp 傳送。</p>
-          <p class="contato-canais">WhatsApp +55 24 98101-3398</p>
+          <p class="contato-canais">WhatsApp +55 24 98101-3398<br>contato@linupedia.com.br</p>
         </div>
         <div class="formulario" data-formulario>
           <p class="painel-rotulo" aria-hidden="true">輸出</p>
@@ -645,6 +645,10 @@
             <label for="email">你的電子郵件<span class="opcional">（用來回覆表單）</span></label>
             <input type="email" id="email" name="email" autocomplete="email" inputmode="email" aria-describedby="email-erro">
             <p class="campo-erro" id="email-erro" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="telefone">你的 WhatsApp<span class="opcional">（選填，方便我們在 WhatsApp 回覆）</span></label>
+            <input type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="例如：+886 912 345 678">
           </div>
           <div class="campo">
             <label for="negocio">事業類型與城市</label>
@@ -667,7 +671,7 @@
             <a class="botao botao-whatsapp" href="https://wa.me/5524981013398" target="_blank" rel="noopener" data-enviar="whatsapp"><svg class="icone" aria-hidden="true"><use href="#i-enviar"/></svg>用 WhatsApp 傳送</a>
           </div>
           <p class="formulario-status" data-formulario-status role="status" aria-live="polite"></p>
-          <p class="formulario-privacidade">送出後，你的需求（名字、電子郵件、事業、選擇的項目和訊息）只為了回覆而保存 12 個月，之後就會刪除。想提前查看或刪除，請來信：contato@linupedia.com.br。</p>
+          <p class="formulario-privacidade">送出後，你的需求（名字、電子郵件、WhatsApp、事業、選擇的項目和訊息）只為了回覆而保存 12 個月，之後就會刪除。想提前查看或刪除，請來信：contato@linupedia.com.br。</p>
         </div>
       </div>
     </section>

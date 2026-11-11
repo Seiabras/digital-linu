@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="../css/estilo.css?v=9f45f37c">
   <link rel="stylesheet" href="../css/movimento.css?v=6c3684a3">
   <script type="application/json" id="textos-js">{"tema_escuro_rotulo":"Passer en mode sombre","tema_escuro":"Mode sombre","menu_abrir":"Ouvrir le menu","rx_mini":"{n} sur {t}","rx_pos":"Question {n} sur {t}","rx_contagem":"Réponses : {n} sur {t}","levar":"Ajouter à mon pack","adicionar":"Ajouter","pacote_nenhum":"Aucun service choisi : pas de souci, expliquez votre besoin dans le message.","enviar_formulario":"Envoyer par le formulaire","tema_claro_rotulo":"Passer en mode clair","tema_claro":"Mode clair","tomada_escuro":"Prise {n} : clic ! Linu a photographié le mode sombre.","tomada_claro":"Prise {n} : clic ! Linu a photographié le mode clair.","menu_fechar":"Fermer le menu","a_partir":"à partir de {v}","por_mes":"{v} par mois","servicos_1":"1 service","servicos_n":"{n} services","no_pacote":"Dans le pack","tirar":"Retirer {nome} du pack","estimativa":"Estimation : {v}","estimativa_form":"Estimation : {v}. Le prix exact figure dans la proposition.","barra_total":"{servicos} : {v}","barra_sem":"{servicos} dans le pack","barra_vazia":"Pack vide","juncao":", ","aviso_nome":"Indiquez votre nom.","aviso_negocio":"Indiquez le type d’entreprise et la ville.","aviso_email":"Indiquez un e-mail valide, comme nom@exemple.com.","msg_ola":"Bonjour, Digital Linu ! Je voudrais un devis.","msg_nome":"Nom : {v}","msg_negocio":"Entreprise : {v}","msg_pacote":"Pack : {v}","msg_estimativa":"Estimation affichée sur le site : {v}","enviando":"Envoi en cours…","enviado":"Envoyé","recebido":"Bien reçu ! La réponse arrivera à votre adresse e-mail ({email}) sous 1 jour ouvré.","erro_envio":"L’envoi n’a pas abouti. Réessayez dans un instant ou passez par WhatsApp.","rx_maps":"Ceux qui cherchent sur Google Maps ne vous trouvent pas encore : c’est la première étape, et la moins chère.","rx_perfil":"Le profil est la vitrine : ceux qui arrivent d’une publicité ou d’un Reel y décident s’ils s’abonnent.","rx_posta":"Sans régularité, Instagram montre moins ce que vous publiez. La gestion mensuelle s’occupe du calendrier.","rx_video":"Ce sont les vidéos courtes qui font le mieux découvrir votre profil à ceux qui ne vous suivent pas encore.","rx_anuncio":"Une publicité à petit budget, bien ciblée, attire des gens de votre zone dès le premier mois.","rx_marca":"Un logo et des couleurs définies donnent à tout ce que vous publiez l’air d’une même marque.","rx_whats":"Une réponse rapide sur WhatsApp, c’est un client qui ne part pas chez le concurrent.","rx_site_sim":"Avec un site, le SEO de base aide Google à vous montrer à ceux qui cherchent.","rx_em_dia":"Tout est en ordre. L’étape suivante est souvent d’apparaître en haut des résultats Google.","rx_total":"Estimation des services recommandés : {v}","fechar":"Fermer"}</script>
-  <script src="../js/digital.js?v=29b6d0b4" defer></script>
+  <script src="../js/digital.js?v=90b00826" defer></script>
   <script src="../js/idiomas.js?v=c601cc35" defer></script>
   <script src="../js/linu-vivo.js?v=daf0f399" defer></script>
   <script src="../js/movimento.js?v=c068d761" defer></script>
@@ -632,7 +632,7 @@
         <div class="contato-texto">
           <div class="cabeca"><span class="tc" aria-hidden="true">00:02:10:00</span><h2 data-mov="palavras">Demandez un devis</h2></div>
           <p>Vérifiez votre pack, parlez un peu de votre entreprise et envoyez le tout par le formulaire (la réponse arrive par e-mail) ou sur WhatsApp, où le message est déjà rédigé.</p>
-          <p class="contato-canais">WhatsApp +55 24 98101-3398</p>
+          <p class="contato-canais">WhatsApp +55 24 98101-3398<br>contato@linupedia.com.br</p>
         </div>
         <div class="formulario" data-formulario>
           <p class="painel-rotulo" aria-hidden="true">Exporter</p>
@@ -645,6 +645,10 @@
             <label for="email">Votre adresse e-mail <span class="opcional">(pour la réponse au formulaire)</span></label>
             <input type="email" id="email" name="email" autocomplete="email" inputmode="email" aria-describedby="email-erro">
             <p class="campo-erro" id="email-erro" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="telefone">Votre WhatsApp <span class="opcional">(facultatif, pour vous répondre par ce canal)</span></label>
+            <input type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="Ex. : +33 6 12 34 56 78">
           </div>
           <div class="campo">
             <label for="negocio">Entreprise et ville</label>
@@ -667,7 +671,7 @@
             <a class="botao botao-whatsapp" href="https://wa.me/5524981013398" target="_blank" rel="noopener" data-enviar="whatsapp"><svg class="icone" aria-hidden="true"><use href="#i-enviar"/></svg>Envoyer sur WhatsApp</a>
           </div>
           <p class="formulario-status" data-formulario-status role="status" aria-live="polite"></p>
-          <p class="formulario-privacidade">À l’envoi, la demande (nom, e-mail, entreprise, ce que vous avez choisi et le message) est conservée 12 mois, uniquement pour vous répondre, puis supprimée. Pour la consulter ou la supprimer avant : contato@linupedia.com.br.</p>
+          <p class="formulario-privacidade">À l’envoi, la demande (nom, e-mail, WhatsApp, entreprise, ce que vous avez choisi et le message) est conservée 12 mois, uniquement pour vous répondre, puis supprimée. Pour la consulter ou la supprimer avant : contato@linupedia.com.br.</p>
         </div>
       </div>
     </section>

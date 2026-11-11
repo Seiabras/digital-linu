@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="css/estilo.css?v=9f45f37c">
   <link rel="stylesheet" href="css/movimento.css?v=6c3684a3">
   <script type="application/json" id="textos-js">{"tema_escuro_rotulo":"Mudar para o modo escuro","tema_escuro":"Modo escuro","menu_abrir":"Abrir o menu","rx_mini":"{n} de {t}","rx_pos":"Pergunta {n} de {t}","rx_contagem":"{n} de {t} respondidas","levar":"Levar para o meu pacote","adicionar":"Adicionar","pacote_nenhum":"Nenhum serviço escolhido: tudo bem, conte na mensagem.","enviar_formulario":"Enviar pelo formulário","tema_claro_rotulo":"Mudar para o modo claro","tema_claro":"Modo claro","tomada_escuro":"Tomada {n}: clique! O Linu fotografou o modo escuro.","tomada_claro":"Tomada {n}: clique! O Linu fotografou o modo claro.","menu_fechar":"Fechar o menu","a_partir":"a partir de {v}","por_mes":"{v} por mês","servicos_1":"1 serviço","servicos_n":"{n} serviços","no_pacote":"No pacote","tirar":"Tirar {nome} do pacote","estimativa":"Estimativa: {v}","estimativa_form":"Estimativa: {v}. O preço certo vem na proposta.","barra_total":"{servicos}: {v}","barra_sem":"{servicos} no pacote","barra_vazia":"Pacote vazio","juncao":", ","aviso_nome":"Escreva o seu nome.","aviso_negocio":"Conte o tipo de negócio e a cidade.","aviso_email":"Escreva um e-mail válido, como nome@exemplo.com.","msg_ola":"Olá, Digital Linu! Quero um orçamento.","msg_nome":"Nome: {v}","msg_negocio":"Negócio: {v}","msg_pacote":"Pacote: {v}","msg_estimativa":"Estimativa pela página: {v}","enviando":"Enviando…","enviado":"Enviado","recebido":"Recebido! A resposta chega no seu e-mail ({email}) em até 1 dia útil.","erro_envio":"Não deu para enviar agora. Tente de novo em instantes ou mande pelo WhatsApp.","rx_maps":"Quem procura no Google Maps ainda não acha você: é o primeiro passo, e o mais barato.","rx_perfil":"O perfil é a vitrine: quem chega de um anúncio ou de um Reels decide ali se segue.","rx_posta":"Sem constância, o Instagram mostra menos o que você posta. A gestão mensal resolve o calendário.","rx_video":"Vídeo curto é o que mais leva o perfil para quem ainda não segue você.","rx_anuncio":"Anúncio com orçamento pequeno e bem mirado traz gente da sua região já no primeiro mês.","rx_marca":"Logo e cores definidas fazem tudo o que você publica parecer da mesma marca.","rx_whats":"Resposta rápida no WhatsApp é cliente que não vai para o concorrente.","rx_site_sim":"Com site, o SEO básico ajuda o Google a mostrar você para quem procura.","rx_em_dia":"Está tudo em dia. O próximo passo costuma ser aparecer no alto da busca do Google.","rx_total":"Estimativa do recomendado: {v}","fechar":"Fechar"}</script>
-  <script src="js/digital.js?v=29b6d0b4" defer></script>
+  <script src="js/digital.js?v=90b00826" defer></script>
   <script src="js/idiomas.js?v=c601cc35" defer></script>
   <script src="js/linu-vivo.js?v=daf0f399" defer></script>
   <script src="js/movimento.js?v=c068d761" defer></script>
@@ -632,7 +632,7 @@
         <div class="contato-texto">
           <div class="cabeca"><span class="tc" aria-hidden="true">00:02:10:00</span><h2 data-mov="palavras">Peça o orçamento</h2></div>
           <p>Confira o pacote, conte um pouco do negócio e mande pelo formulário (a resposta chega no seu e-mail) ou pelo WhatsApp, com a mensagem já escrita.</p>
-          <p class="contato-canais">WhatsApp (24) 98101-3398</p>
+          <p class="contato-canais">WhatsApp +55 (24) 98101-3398<br>contato@linupedia.com.br</p>
         </div>
         <div class="formulario" data-formulario>
           <p class="painel-rotulo" aria-hidden="true">Exportar</p>
@@ -645,6 +645,10 @@
             <label for="email">Seu e-mail <span class="opcional">(para a resposta pelo formulário)</span></label>
             <input type="email" id="email" name="email" autocomplete="email" inputmode="email" aria-describedby="email-erro">
             <p class="campo-erro" id="email-erro" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="telefone">Seu WhatsApp <span class="opcional">(opcional, para a gente responder por lá)</span></label>
+            <input type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="Ex.: +55 (24) 99999-9999">
           </div>
           <div class="campo">
             <label for="negocio">Negócio e cidade</label>
@@ -667,7 +671,7 @@
             <a class="botao botao-whatsapp" href="https://wa.me/5524981013398" target="_blank" rel="noopener" data-enviar="whatsapp"><svg class="icone" aria-hidden="true"><use href="#i-enviar"/></svg>Mandar pelo WhatsApp</a>
           </div>
           <p class="formulario-status" data-formulario-status role="status" aria-live="polite"></p>
-          <p class="formulario-privacidade">Ao mandar, o pedido (nome, e-mail, negócio, o que você escolheu e a mensagem) fica guardado por 12 meses só para a gente responder, e depois é apagado. Para ver ou apagar antes: contato@linupedia.com.br.</p>
+          <p class="formulario-privacidade">Ao mandar, o pedido (nome, e-mail, WhatsApp, negócio, o que você escolheu e a mensagem) fica guardado por 12 meses só para a gente responder, e depois é apagado. Para ver ou apagar antes: contato@linupedia.com.br.</p>
         </div>
       </div>
     </section>

@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="../css/estilo.css?v=9f45f37c">
   <link rel="stylesheet" href="../css/movimento.css?v=6c3684a3">
   <script type="application/json" id="textos-js">{"tema_escuro_rotulo":"Naar de donkere modus","tema_escuro":"Donkere modus","menu_abrir":"Menu openen","rx_mini":"{n} van {t}","rx_pos":"Vraag {n} van {t}","rx_contagem":"{n} van {t} beantwoord","levar":"Toevoegen aan mijn pakket","adicionar":"Toevoegen","pacote_nenhum":"Geen dienst gekozen: geen probleem, vertel het in je bericht.","enviar_formulario":"Versturen via het formulier","tema_claro_rotulo":"Naar de lichte modus","tema_claro":"Lichte modus","tomada_escuro":"Take {n}: klik! Linu heeft de donkere modus gefotografeerd.","tomada_claro":"Take {n}: klik! Linu heeft de lichte modus gefotografeerd.","menu_fechar":"Menu sluiten","a_partir":"vanaf {v}","por_mes":"{v} per maand","servicos_1":"1 dienst","servicos_n":"{n} diensten","no_pacote":"In het pakket","tirar":"{nome} uit het pakket halen","estimativa":"Schatting: {v}","estimativa_form":"Schatting: {v}. De precieze prijs staat in het voorstel.","barra_total":"{servicos}: {v}","barra_sem":"{servicos} in het pakket","barra_vazia":"Leeg pakket","juncao":", ","aviso_nome":"Vul je naam in.","aviso_negocio":"Vertel wat voor bedrijf het is en in welke plaats.","aviso_email":"Vul een geldig e-mailadres in, zoals naam@voorbeeld.nl.","msg_ola":"Hallo, Digital Linu! Ik wil graag een offerte.","msg_nome":"Naam: {v}","msg_negocio":"Bedrijf: {v}","msg_pacote":"Pakket: {v}","msg_estimativa":"Schatting via de pagina: {v}","enviando":"Bezig met versturen…","enviado":"Verstuurd","recebido":"Ontvangen! Je krijgt binnen 1 werkdag antwoord op je e-mailadres ({email}).","erro_envio":"Versturen lukte nu niet. Probeer het zo meteen opnieuw of stuur het via WhatsApp.","rx_maps":"Wie op Google Maps zoekt, vindt je nog niet: dit is de eerste stap, en de goedkoopste.","rx_perfil":"Je profiel is je etalage: wie via een advertentie of een Reel binnenkomt, beslist daar of die je gaat volgen.","rx_posta":"Zonder regelmaat laat Instagram je posts minder vaak zien. Het maandelijkse beheer regelt de contentkalender.","rx_video":"Korte video’s brengen je profiel het vaakst bij mensen die je nog niet volgen.","rx_anuncio":"Een klein, goed gericht advertentiebudget levert al in de eerste maand mensen uit je regio op.","rx_marca":"Een logo en vaste kleuren zorgen ervoor dat alles wat je plaatst er als één merk uitziet.","rx_whats":"Een snel antwoord op WhatsApp is een klant die niet naar de concurrent gaat.","rx_site_sim":"Met een website helpt basis-SEO Google om je te tonen aan mensen die zoeken.","rx_em_dia":"Alles is op orde. De volgende stap is meestal bovenaan staan in Google.","rx_total":"Schatting voor de aanbevolen diensten: {v}","fechar":"Sluiten"}</script>
-  <script src="../js/digital.js?v=29b6d0b4" defer></script>
+  <script src="../js/digital.js?v=90b00826" defer></script>
   <script src="../js/idiomas.js?v=c601cc35" defer></script>
   <script src="../js/linu-vivo.js?v=daf0f399" defer></script>
   <script src="../js/movimento.js?v=c068d761" defer></script>
@@ -632,7 +632,7 @@
         <div class="contato-texto">
           <div class="cabeca"><span class="tc" aria-hidden="true">00:02:10:00</span><h2 data-mov="palavras">Vraag een offerte aan</h2></div>
           <p>Bekijk je pakket, vertel iets over je bedrijf en stuur het via het formulier (je krijgt antwoord per e-mail) of via WhatsApp, waar het bericht al voor je klaarstaat.</p>
-          <p class="contato-canais">WhatsApp +55 24 98101-3398</p>
+          <p class="contato-canais">WhatsApp +55 24 98101-3398<br>contato@linupedia.com.br</p>
         </div>
         <div class="formulario" data-formulario>
           <p class="painel-rotulo" aria-hidden="true">Exporteren</p>
@@ -645,6 +645,10 @@
             <label for="email">Je e-mailadres <span class="opcional">(voor het antwoord via het formulier)</span></label>
             <input type="email" id="email" name="email" autocomplete="email" inputmode="email" aria-describedby="email-erro">
             <p class="campo-erro" id="email-erro" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="telefone">Je WhatsApp-nummer <span class="opcional">(optioneel, dan antwoorden we daar)</span></label>
+            <input type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="Bijv. +31 6 12345678">
           </div>
           <div class="campo">
             <label for="negocio">Bedrijf en plaats</label>
@@ -667,7 +671,7 @@
             <a class="botao botao-whatsapp" href="https://wa.me/5524981013398" target="_blank" rel="noopener" data-enviar="whatsapp"><svg class="icone" aria-hidden="true"><use href="#i-enviar"/></svg>Versturen via WhatsApp</a>
           </div>
           <p class="formulario-status" data-formulario-status role="status" aria-live="polite"></p>
-          <p class="formulario-privacidade">Als je het verstuurt, bewaren we je aanvraag (naam, e-mail, bedrijf, wat je hebt gekozen en het bericht) 12 maanden, alleen om je te kunnen antwoorden. Daarna wissen we die. Eerder inzien of laten wissen: contato@linupedia.com.br.</p>
+          <p class="formulario-privacidade">Als je het verstuurt, bewaren we je aanvraag (naam, e-mail, WhatsApp, bedrijf, wat je hebt gekozen en het bericht) 12 maanden, alleen om je te kunnen antwoorden. Daarna wissen we die. Eerder inzien of laten wissen: contato@linupedia.com.br.</p>
         </div>
       </div>
     </section>
