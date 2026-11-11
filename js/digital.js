@@ -272,7 +272,7 @@
   function escreverMensagem() {
     var t = encodeURIComponent(texto());
     whats.href = "https://wa.me/5561996672610?text=" + t;
-    email.href = "mailto:contato@linupedia.com.br?subject=" + encodeURIComponent("Orçamento Digital Linu") + "&body=" + t;
+    email.href = "mailto:digital@linupedia.com.br?subject=" + encodeURIComponent("Orçamento Digital Linu") + "&body=" + t;
   }
   // o pedido também fica registrado (linuarquivos/servidor/linu-pedidos): sendBeacon não atrasa a abertura do WhatsApp
   // nem do e-mail e segue mesmo se a página fechar; se falhar, a conversa continua igual
