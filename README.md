@@ -92,3 +92,5 @@ diretrizes é de 25 arquivos e 300 KB), 475 elementos na página e nenhuma rolag
 Em 07/11/2026, com a linha do tempo: 390 px com 9.983 px de altura, 820 px com 7.519 px e 1280 px com 6.775 px, nenhuma
 rolagem lateral nas três larguras, claro e escuro. As fontes passaram de 39 KB (Nunito) para 121 KB (Archivo variável
 com o eixo de largura + JetBrains Mono).
+
+- **Contador de visitas do Farol (11/11/2026):** `js/farol-visitas.js` é cópia do `linu-farol/v.js` (mudou lá, muda aqui). Conta as visitas sem cookie; o CSP libera `https://farol.linupedia.com.br` no `connect-src` (na página e no Caddy). Os números ficam no painel da casa: https://farol.linupedia.com.br/p/casa-digital/.
