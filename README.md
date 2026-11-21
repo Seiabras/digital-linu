@@ -25,7 +25,7 @@ apontam um para o outro, mas cada um vive no seu repositório.
 | `ferramentas/pagina/` e `ferramentas/gerar-idiomas.mjs` | **A página em 13 idiomas** (11/11/2026): o `modelo.html` (o HTML, com `{{chave}}` no lugar de cada texto) e os textos de cada idioma (`textos/<código>.json`). O gerador escreve o `index.html` (pt-BR) e o `<pasta>/index.html` de cada idioma, o `sitemap.xml` e as versões dos arquivos. **O `index.html` é gerado: não edite à mão.** |
 | `precos.json` | **Os preços numa fonte só**: em reais em `servicos` e, desde 11/11/2026, em euro e dólar em `moedas`. O gerador escreve o `data-preco`, a linha “a partir de” de cada serviço, os dados que o Google lê e o total dos pacotes prontos. Para mudar um preço: editar o `precos.json` e rodar `node ferramentas/gerar-idiomas.mjs`. O Actions confere (`--conferir`) e não publica se a página discordar. A Família Linu lê este arquivo para as rotas. |
 | `ferramentas/gerar-fontes.mjs` | As fontes de japonês, coreano e chinês (`fontes/noto-*.woff2`), cortadas só com os caracteres que cada página usa. Roda no fim do gerador. |
-| `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. |
+| `deploy/` | A publicação na VM: o `receber.sh`, a preparação, o bloco do Caddy, a conferência das páginas e o `ORACLE.md`. O `receber.sh` recusa pacote com atalho (link), que poderia apontar para fora do site (21/11/2026). |
 | `IDENTIDADE.md` | As decisões de identidade (o objeto, as cores, as fontes, a voz, o que evitar). Ler antes de mexer em tela. |
 | `DIRETRIZES-UX.md` | As diretrizes de interface e desempenho de todos os projetos. |
 
